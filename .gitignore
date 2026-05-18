@@ -1,9 +1,40 @@
-atec_robot_model
+# Local heavyweight downloads / generated artifacts
+/atec_robot_model/
+/third_party/
+/outputs/
+/log/
+/logs/
+/video/
+/videos/
+/tmp/
+/Pasted image*.png
+
+# Model weights, checkpoints, datasets, and archives
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.engine
+*.bin
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Existing small upstream demo policy; new policy weights stay ignored by default.
+!demo/policy.pt
+
 .vscode
 .idea
-video
-logs
-tmp
 
 # C++
 **/cmake-build*/
@@ -80,4 +111,3 @@ tests/
 # TacSL sensor
 **/tactile_record/*
 **/gelsight_r15_data/*
-

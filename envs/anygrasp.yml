@@ -1,0 +1,18 @@
+name: anygrasp
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - git
+  - cmake
+  - ninja
+  - openblas
+  - libopenblas
+  - gcc_linux-64=11.*
+  - gxx_linux-64=11.*
+  - setuptools
+  - wheel
+  - packaging
+  - numpy<2
+  - scipy
