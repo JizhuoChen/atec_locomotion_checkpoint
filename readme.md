@@ -68,8 +68,13 @@ Follow the official Isaac Lab installation [guide](https://isaac-sim.github.io/I
 
 Clone repository
 ```bash
-git clone https://github.com/atecup/ATEC2026_Simulation_Challenge.git
+git clone --recurse-submodules https://github.com/StevenLiudw/Clear_ATEC2026_Simulation_Challenge.git ATEC2026_Simulation_Challenge
 cd ATEC2026_Simulation_Challenge
+```
+
+For an existing checkout, initialize the tracked third-party sources with:
+```bash
+git submodule update --init --recursive
 ```
 
 Activate Isaac Lab Environment

@@ -1,0 +1,8 @@
+[submodule "third_party/anygrasp_sdk"]
+	path = third_party/anygrasp_sdk
+	url = https://github.com/graspnet/anygrasp_sdk.git
+	ignore = untracked
+[submodule "third_party/moveit2"]
+	path = third_party/moveit2
+	url = https://github.com/moveit/moveit2.git
+	ignore = untracked

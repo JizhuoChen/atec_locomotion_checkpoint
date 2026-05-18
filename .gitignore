@@ -1,6 +1,5 @@
 # Local heavyweight downloads / generated artifacts
 /atec_robot_model/
-/third_party/
 /outputs/
 /log/
 /logs/
@@ -32,6 +31,20 @@
 
 # Existing small upstream demo policy; new policy weights stay ignored by default.
 !demo/policy.pt
+
+# Third-party source can be tracked, but generated/heavy local artifacts stay out.
+/third_party/openssl11/
+/third_party/**/.git/
+/third_party/**/build/
+/third_party/**/dist/
+/third_party/**/*.egg-info/
+/third_party/anygrasp_sdk/checkpoint*.tar
+/third_party/anygrasp_sdk/license/
+/third_party/anygrasp_sdk/grasp_detection/license/
+/third_party/anygrasp_sdk/grasp_tracking/license/
+/third_party/anygrasp_sdk/grasp_detection/example_data/
+/third_party/anygrasp_sdk/grasp_tracking/example_data/
+/third_party/anygrasp_sdk/license_registration/license_checker
 
 .vscode
 .idea
