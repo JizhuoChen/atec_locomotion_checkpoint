@@ -15,7 +15,9 @@ if [[ ! -f /opt/ros/jazzy/setup.bash ]]; then
   exit 1
 fi
 
+set +u
 source /opt/ros/jazzy/setup.bash
+set -u
 
 if ! rosdep db >/dev/null 2>&1; then
   cat >&2 <<'EOF'

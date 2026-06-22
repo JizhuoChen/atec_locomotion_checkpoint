@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="task_e_piper_arm">
+  <!-- Generated from atec_robot_model/robot/_piper/piper_flattened.usd. -->
+  <link name="arm_base"/>
+  <link name="arm_link1"/>
+  <link name="arm_link2"/>
+  <link name="arm_link3"/>
+  <link name="arm_link4"/>
+  <link name="arm_link5"/>
+  <link name="arm_link6"/>
+  <link name="gripper_base"/>
+
+  <joint name="joint1" type="revolute">
+    <parent link="arm_base"/>
+    <child link="arm_link1"/>
+    <origin xyz="0 0 0.123" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.6180000033" upper="2.1679998149" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint2" type="revolute">
+    <parent link="arm_link1"/>
+    <child link="arm_link2"/>
+    <origin xyz="0 0 0" rpy="1.570799939 -0.1358999913 3.141585405"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.0" upper="3.1399998169" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint3" type="revolute">
+    <parent link="arm_link2"/>
+    <child link="arm_link3"/>
+    <origin xyz="0.28502998 5.286098e-09 3.1617692e-10" rpy="-6.531348218e-08 2.770372731e-08 -1.793900227"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.9669998073" upper="0.0" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint4" type="revolute">
+    <parent link="arm_link3"/>
+    <child link="arm_link4"/>
+    <origin xyz="-0.021983974 -0.25075004 -5.8292398e-09" rpy="1.570799862 -1.729249965e-08 -2.052603112e-07"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.7449999521" upper="1.7449999521" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint5" type="revolute">
+    <parent link="arm_link4"/>
+    <child link="arm_link5"/>
+    <origin xyz="0 0 -3.469447e-18" rpy="-1.570799862 4.61980012e-08 3.003501714e-08"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.2199999543" upper="1.2199999543" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint6" type="revolute">
+    <parent link="arm_link5"/>
+    <child link="arm_link6"/>
+    <origin xyz="8.826461e-05 -0.09100002 -9.369875e-09" rpy="1.570799862 6.602647362e-08 -2.312947818e-07"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.0943997629" upper="2.0943997629" effort="100.0" velocity="100.0"/>
+  </joint>
+
+  <joint name="joint6_to_gripper_base" type="fixed">
+    <parent link="arm_link6"/>
+    <child link="gripper_base"/>
+    <origin xyz="5.551115e-17 5.293956e-23 0" rpy="3.106343024e-15 -3.425011785e-08 5.475024799e-13"/>
+  </joint>
+</robot>

@@ -1,0 +1,3403 @@
+{
+  "schema": "atec.task_e.submission_motion_profiles.v1",
+  "note": "Generated from full-success execution artifacts for seed120 and seed130 bottle->box->banana pipeline.",
+  "default_joint_pos": [
+    0.0,
+    1.2,
+    -1.5,
+    0.0,
+    1.2,
+    0.0,
+    0.035,
+    -0.035
+  ],
+  "action_scale": 0.5,
+  "success_score_thresholds": {
+    "mustard_bottle": 5.5,
+    "box_object": 11.5,
+    "banana": 17.5
+  },
+  "profiles": {
+    "seed120": {
+      "source_execution_dir": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution",
+      "object_order": [
+        "mustard_bottle",
+        "box_object",
+        "banana"
+      ],
+      "objects": {
+        "mustard_bottle": {
+          "name": "mustard_bottle",
+          "center_w": [
+            1.0672859405478947,
+            0.15301240878534061,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            1.0672859405478947,
+            0.15301240878534061,
+            0.9328552493958806
+          ],
+          "video_center_w": [
+            1.004938128340628,
+            0.16147674202769313,
+            0.9176738020684968
+          ],
+          "attempt_number": 1
+        },
+        "box_object": {
+          "name": "box_object",
+          "center_w": [
+            1.0191041415371347,
+            0.2548824963316508,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            1.0191041415371347,
+            0.2548824963316508,
+            0.8893246302933786
+          ],
+          "video_center_w": [
+            0.98628603164526,
+            0.28011870107960646,
+            0.885797740359997
+          ],
+          "attempt_number": 1
+        },
+        "banana": {
+          "name": "banana",
+          "center_w": [
+            0.961255471008128,
+            0.06647228731801932,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            0.961255471008128,
+            0.06647228731801932,
+            0.8586078722258104
+          ],
+          "video_center_w": [
+            0.9208170146667538,
+            0.06812891364159133,
+            0.857068121145316
+          ],
+          "attempt_number": 1
+        }
+      },
+      "episodes": [
+        {
+          "object": "mustard_bottle",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/01_mustard_bottle/motion_request.json",
+          "result_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/01_mustard_bottle/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.058966439217329025,
+                0.9243481159210205,
+                -1.5196887254714966,
+                -0.047000568360090256,
+                1.21999990940094,
+                -0.09457507729530334
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12228223497211685,
+              "last_action": [
+                -0.08071977645158768,
+                -0.550926685333252,
+                -0.036275386810302734,
+                -0.07195109874010086,
+                0.3599996566772461,
+                -0.13607536256313324,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp_stage",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.48785558342933655,
+                1.4992198944091797,
+                -1.600050687789917,
+                0.0939926877617836,
+                1.1809906959533691,
+                -0.2789461612701416
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 4.044279328052791e-06,
+              "last_action": [
+                -0.9757199883460999,
+                0.5984756946563721,
+                -0.20013880729675293,
+                0.1879870891571045,
+                -0.03798270225524902,
+                -0.5579010248184204,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.487880140542984,
+                1.4847617149353027,
+                -1.1031389236450195,
+                0.13494715094566345,
+                0.7014979720115662,
+                -0.3465048670768738
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 190,
+              "steps_requested": 120,
+              "position_error_m": 0.0029043656477338127,
+              "last_action": [
+                -0.975760281085968,
+                0.5695233345031738,
+                0.7937221527099609,
+                0.2698943018913269,
+                -0.9970041513442993,
+                -0.6930097341537476,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_grasp",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 130,
+              "steps_requested": 100,
+              "position_error_m": 0.04887928114375199,
+              "last_action": [
+                -0.9118914604187012,
+                1.2661256790161133,
+                0.7669496536254883,
+                0.38976842164993286,
+                -1.6673235893249512,
+                -0.7972440719604492,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_close",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 125,
+              "steps_requested": 55,
+              "position_error_m": 0.04514241758175946,
+              "last_action": [
+                -0.9118914604187012,
+                1.2661256790161133,
+                0.7669496536254883,
+                0.38976842164993286,
+                -1.6673235893249512,
+                -0.7972440719604492,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_approach_lift",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.5107398629188538,
+                1.3511962890625,
+                -1.1723185777664185,
+                0.12652431428432465,
+                0.9054344296455383,
+                -0.3407523036003113
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 190,
+              "steps_requested": 120,
+              "position_error_m": 0.004639836368731293,
+              "last_action": [
+                -1.0214797258377075,
+                0.30239248275756836,
+                0.6553628444671631,
+                0.2530486285686493,
+                -0.589131236076355,
+                -0.6815046072006226,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_lift",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5108991265296936,
+                1.385787010192871,
+                -1.4811395406723022,
+                0.10766694694757462,
+                1.1824095249176025,
+                -0.30628710985183716
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.0013588648108727491,
+              "last_action": [
+                -1.021742343902588,
+                0.36760449409484863,
+                0.03337430953979492,
+                0.21515721082687378,
+                -0.03606247901916504,
+                -0.6068400144577026,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_transport",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                1.0001622438430786,
+                2.069692850112915,
+                -2.459810972213745,
+                -0.5911988615989685,
+                1.2200018167495728,
+                0.9903619289398193
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.06188394800347611,
+              "last_action": [
+                2.0001978874206543,
+                1.7320733070373535,
+                -1.9257779121398926,
+                -1.182030439376831,
+                0.3600037097930908,
+                1.9863617420196533,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_place",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9433152079582214,
+                1.9182460308074951,
+                -1.432682752609253,
+                -0.7533710598945618,
+                0.932698130607605,
+                1.6276627779006958
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.07922331107077468,
+              "last_action": [
+                1.9371272325515747,
+                1.6887764930725098,
+                0.3071281909942627,
+                -1.462493896484375,
+                -0.5390561819076538,
+                3.260028600692749,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_open",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9470498561859131,
+                1.9156018495559692,
+                -1.4271774291992188,
+                -0.7560272812843323,
+                0.9342106580734253,
+                1.6300277709960938
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.07869303150386982,
+              "last_action": [
+                1.9371683597564697,
+                1.6892848014831543,
+                0.3079531192779541,
+                -1.4619545936584473,
+                -0.5401740074157715,
+                3.2612061500549316,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_lift_retract",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                1.0003169775009155,
+                2.065567970275879,
+                -2.4640212059020996,
+                -0.591609537601471,
+                1.2200000286102295,
+                0.9923298954963684
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.06257382267707669,
+              "last_action": [
+                2.0006697177886963,
+                1.731210708618164,
+                -1.9281883239746094,
+                -1.1833070516586304,
+                0.3599998950958252,
+                1.984580159187317,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.006306357216089964,
+                0.9245259165763855,
+                -1.5144336223602295,
+                0.007598405238240957,
+                1.21999990940094,
+                0.012438956648111343
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.12130584023271096,
+              "last_action": [
+                0.00798721332103014,
+                -0.550930380821228,
+                -0.029414653778076172,
+                0.010588521137833595,
+                0.3599996566772461,
+                0.016605272889137268,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "box_object",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/02_box_object/motion_request.json",
+          "result_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/02_box_object/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.05838748440146446,
+                0.9243521690368652,
+                -1.5196317434310913,
+                -0.04654505476355553,
+                1.21999990940094,
+                -0.09364907443523407
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12226974771228788,
+              "last_action": [
+                -0.07991911470890045,
+                -0.5509252548217773,
+                -0.036192893981933594,
+                -0.07124879956245422,
+                0.3599996566772461,
+                -0.13473692536354065,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_pregrasp_stage",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.4913131594657898,
+                2.182252883911133,
+                -2.7038557529449463,
+                -2.6789846288011177e-06,
+                1.2200000286102295,
+                1.0209786891937256
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.04437780401506239,
+              "last_action": [
+                -0.9826330542564392,
+                1.964571475982666,
+                -2.407775402069092,
+                -8.031811375985853e-07,
+                0.3599998950958252,
+                2.0419907569885254,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_pregrasp",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5039204955101013,
+                2.1637814044952393,
+                -1.9255812168121338,
+                -0.007526702713221312,
+                1.219992995262146,
+                1.0188708305358887
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.03500836811336562,
+              "last_action": [
+                -0.9842016696929932,
+                2.0214710235595703,
+                -0.7977890968322754,
+                -0.002672874368727207,
+                0.2914860248565674,
+                2.040557384490967,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_grasp",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5031468868255615,
+                2.2186331748962402,
+                -1.7250016927719116,
+                -0.0001531697198515758,
+                0.9652334451675415,
+                1.018623948097229
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.07900212878880934,
+              "last_action": [
+                -0.983318567276001,
+                2.2940096855163574,
+                -0.31905293464660645,
+                -0.0031931346748024225,
+                -0.4589802026748657,
+                2.042754650115967,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_close",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5038899779319763,
+                2.2143895626068115,
+                -1.720439076423645,
+                0.0005543868755921721,
+                0.9697331190109253,
+                1.0179719924926758
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.0015118068782849125,
+              "last_action": [
+                -1.006272792816162,
+                2.0357651710510254,
+                -0.4472789764404297,
+                -0.000289277289994061,
+                -0.47074103355407715,
+                2.0372538566589355,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_approach_lift",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.4911523163318634,
+                2.2177276611328125,
+                -2.1584696769714355,
+                -0.0003673875180538744,
+                1.2200021743774414,
+                1.018874168395996
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.04110840578190883,
+              "last_action": [
+                -0.982487142086029,
+                2.0278496742248535,
+                -1.3224239349365234,
+                -0.0007859959150664508,
+                0.360004186630249,
+                2.0422306060791016,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_lift",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.49097588658332825,
+                2.1883020401000977,
+                -2.703184127807617,
+                -0.0013377056457102299,
+                1.2200064659118652,
+                1.0189095735549927
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.04245368122075724,
+              "last_action": [
+                -0.982089102268219,
+                1.9683589935302734,
+                -2.4129748344421387,
+                -0.002065888838842511,
+                0.3600130081176758,
+                2.0416371822357178,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_transport",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6578502058982849,
+                2.269972562789917,
+                -2.749021291732788,
+                -0.032180119305849075,
+                1.2200067043304443,
+                2.094390630722046
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.017068753240947244,
+              "last_action": [
+                1.315618872642517,
+                2.1318817138671875,
+                -2.5038065910339355,
+                -0.06743182241916656,
+                0.3600132465362549,
+                4.322597503662109,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_place",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.671710193157196,
+                2.463489532470703,
+                -2.2533886432647705,
+                0.0012118798913434148,
+                1.220009207725525,
+                2.094393253326416
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.03247440293801981,
+              "last_action": [
+                1.3048807382583618,
+                2.5814638137817383,
+                -1.4729766845703125,
+                -0.012253220193088055,
+                0.3600184917449951,
+                4.333745956420898,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_open",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6561225056648254,
+                2.480433464050293,
+                -2.234201192855835,
+                -0.0052039348520338535,
+                1.219999074935913,
+                2.094399929046631
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.021454063193438674,
+              "last_action": [
+                1.3025377988815308,
+                2.577709674835205,
+                -1.4571938514709473,
+                -0.012597809545695782,
+                0.3599984645843506,
+                4.330108642578125,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_lift_retract",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6578785181045532,
+                2.264627456665039,
+                -2.74939227104187,
+                -0.03391348943114281,
+                1.21999990940094,
+                2.094399929046631
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.020093799357245107,
+              "last_action": [
+                1.3157726526260376,
+                2.129202365875244,
+                -2.4987282752990723,
+                -0.06782765686511993,
+                0.3599996566772461,
+                4.32135009765625,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.8842743635177612,
+                0.9078063368797302,
+                -1.5782581567764282,
+                0.33593448996543884,
+                1.220000147819519,
+                -0.5086296796798706
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.13974848356341968,
+              "last_action": [
+                -1.5166113376617432,
+                -0.6087801456451416,
+                -0.13865423202514648,
+                0.40976959466934204,
+                0.3600001335144043,
+                -1.2470703125,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_01/motion_request.json",
+          "result_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_01/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.0003721172397490591,
+                0.9245232343673706,
+                -1.5146422386169434,
+                -0.0004388651577755809,
+                1.2200000286102295,
+                -0.0007399516762234271
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12132935256969542,
+              "last_action": [
+                -0.00048716372111812234,
+                -0.550937294960022,
+                -0.029613018035888672,
+                -0.0005928215105086565,
+                0.3599998950958252,
+                -0.000993390567600727,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11459401249885559,
+                2.0264065265655518,
+                -2.3373959064483643,
+                -0.011319350451231003,
+                1.2200000286102295,
+                -0.2496001124382019
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.016064838852578613,
+              "last_action": [
+                -0.22918593883514404,
+                1.6528868675231934,
+                -1.6748652458190918,
+                -0.022638782858848572,
+                0.35250377655029297,
+                -0.4992046058177948,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11463989317417145,
+                2.0634403228759766,
+                -1.3260955810546875,
+                -0.03431890159845352,
+                0.3288329541683197,
+                -0.2193407416343689
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 1.5431433442682206e-05,
+              "last_action": [
+                -0.2292778640985489,
+                1.7269258499145508,
+                0.3478431701660156,
+                -0.06863816827535629,
+                -1.7423425912857056,
+                -0.4386788606643677,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_grasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11716355383396149,
+                2.310915231704712,
+                -1.6480849981307983,
+                0.05222012847661972,
+                0.31069132685661316,
+                -0.3330751955509186
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.07281618166023282,
+              "last_action": [
+                -0.24122364819049835,
+                2.501920700073242,
+                -0.2709074020385742,
+                -0.028367504477500916,
+                -1.9007891416549683,
+                -0.490923136472702,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_close",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11716297268867493,
+                2.3108785152435303,
+                -1.6480644941329956,
+                0.052220143377780914,
+                0.3106945753097534,
+                -0.33307644724845886
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 1.2792317093756724e-05,
+              "last_action": [
+                -0.2343273013830185,
+                2.2218260765075684,
+                -0.29616594314575195,
+                0.10444063693284988,
+                -1.7786173820495605,
+                -0.666151225566864,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11272396892309189,
+                1.8752379417419434,
+                -1.2403901815414429,
+                -0.029061496257781982,
+                0.43136879801750183,
+                -0.2238314300775528
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 5.353884461557143e-06,
+              "last_action": [
+                -0.22544671595096588,
+                1.3504385948181152,
+                0.5192556381225586,
+                -0.058122891932725906,
+                -1.5372689962387085,
+                -0.4476618468761444,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.11272139102220535,
+                1.8434884548187256,
+                -2.0400989055633545,
+                -0.012751144357025623,
+                1.21999990940094,
+                -0.24636277556419373
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.004726664337828441,
+              "last_action": [
+                -0.22544331848621368,
+                1.2870123386383057,
+                -1.0802721977233887,
+                -0.025501515716314316,
+                0.12507057189941406,
+                -0.49272510409355164,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_transport",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8029428720474243,
+                2.0910632610321045,
+                -2.475147247314453,
+                -0.4684320092201233,
+                1.2200000286102295,
+                0.5364325046539307
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.0421743913216511,
+              "last_action": [
+                1.6059032678604126,
+                1.7822017669677734,
+                -1.9503674507141113,
+                -0.9368675947189331,
+                0.3599998950958252,
+                1.0728696584701538,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_place",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7838596701622009,
+                2.0710315704345703,
+                -1.396217942237854,
+                -0.7466096878051758,
+                0.7265082001686096,
+                1.163102626800537
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.007932990828711302,
+              "last_action": [
+                1.5801262855529785,
+                1.7597217559814453,
+                0.22783637046813965,
+                -1.4757291078567505,
+                -0.951728343963623,
+                2.325333833694458,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_open",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7918000817298889,
+                2.077868700027466,
+                -1.3981527090072632,
+                -0.7355917692184448,
+                0.7167704105377197,
+                1.1612281799316406
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.005448350760727654,
+              "last_action": [
+                1.582197904586792,
+                1.761932373046875,
+                0.2252635955810547,
+                -1.4754173755645752,
+                -0.9505491256713867,
+                2.3265302181243896,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8029366135597229,
+                2.091026544570923,
+                -2.4749460220336914,
+                -0.4683791995048523,
+                1.2200000286102295,
+                0.536507785320282
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.04215109822567499,
+              "last_action": [
+                1.6058903932571411,
+                1.7821383476257324,
+                -1.9501705169677734,
+                -0.9368153810501099,
+                0.3599998950958252,
+                1.0729329586029053,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.005065302364528179,
+                0.9245208501815796,
+                -1.5142128467559814,
+                0.006138091441243887,
+                1.21999990940094,
+                0.010020189918577671
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.12127317177909092,
+              "last_action": [
+                0.006403089500963688,
+                -0.5509365797042847,
+                -0.029160022735595703,
+                0.008547148667275906,
+                0.3599996566772461,
+                0.013360731303691864,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 2,
+          "request_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_02/motion_request.json",
+          "result_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_02/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.00037694050115533173,
+                0.9245237708091736,
+                -1.5146429538726807,
+                -0.0004455297312233597,
+                1.2200000286102295,
+                -0.0007502652588300407
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12132938151654783,
+              "last_action": [
+                -0.0004932258161716163,
+                -0.5509343147277832,
+                -0.0296173095703125,
+                -0.0006024292088113725,
+                0.3599998950958252,
+                -0.0010069614509120584,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.054484523832798004,
+                1.7440954446792603,
+                -1.9377832412719727,
+                -0.14346076548099518,
+                1.2200000286102295,
+                -0.8877724409103394
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.02347205310786282,
+              "last_action": [
+                -0.10897005349397659,
+                1.088226318359375,
+                -0.8756043910980225,
+                -0.2869258522987366,
+                0.3599998950958252,
+                -1.7755639553070068,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.051853835582733154,
+                1.8403284549713135,
+                -1.0416396856307983,
+                -0.3497423827648163,
+                0.42688965797424316,
+                -0.5870903730392456
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.01121018930824613,
+              "last_action": [
+                -0.11059783399105072,
+                1.332080602645874,
+                0.9280164241790771,
+                -0.6974822878837585,
+                -1.5484774112701416,
+                -1.1784878969192505,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_grasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.08559967577457428,
+                2.0597870349884033,
+                -1.2247618436813354,
+                -0.4869966208934784,
+                0.20841015875339508,
+                -0.39598095417022705
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.09097694957066761,
+              "last_action": [
+                -0.20811398327350616,
+                2.0395431518554688,
+                0.637293815612793,
+                -1.124938726425171,
+                -1.983749508857727,
+                -0.8043606877326965,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_close",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.07834944128990173,
+                2.0504579544067383,
+                -1.233583927154541,
+                -0.47002729773521423,
+                0.2097175121307373,
+                -0.4066354036331177
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.007068277746004237,
+              "last_action": [
+                -0.17100881040096283,
+                1.7199487686157227,
+                0.5439004898071289,
+                -0.9584036469459534,
+                -1.9776420593261719,
+                -0.8076435327529907,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.02677883580327034,
+                1.6861449480056763,
+                -1.027918815612793,
+                -0.2754873037338257,
+                0.5963036417961121,
+                -0.6530059576034546
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 6.23969105560296e-06,
+              "last_action": [
+                -0.05355764180421829,
+                0.9722528457641602,
+                0.9441983699798584,
+                -0.5509746670722961,
+                -1.2073789834976196,
+                -1.306020975112915,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.02582785300910473,
+                1.6452747583389282,
+                -1.805765986442566,
+                -0.15605972707271576,
+                1.2200000286102295,
+                -0.8550713062286377
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.020582314107590073,
+              "last_action": [
+                -0.05165587738156319,
+                0.8905868530273438,
+                -0.6115689277648926,
+                -0.31212088465690613,
+                0.3599998950958252,
+                -1.7101505994796753,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_transport",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8078490495681763,
+                2.145183563232422,
+                -2.6216418743133545,
+                -0.4434787631034851,
+                1.2200000286102295,
+                -0.21561796963214874
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.05624593821731288,
+              "last_action": [
+                1.6157009601593018,
+                1.8902945518493652,
+                -2.2432141304016113,
+                -0.8869580030441284,
+                0.3599998950958252,
+                -0.4312385618686676,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_place",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7750661969184875,
+                2.093311309814453,
+                -1.5069079399108887,
+                -0.5317021012306213,
+                0.9118017554283142,
+                0.2637612521648407
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.017159483131844643,
+              "last_action": [
+                1.5597476959228516,
+                1.8387856483459473,
+                0.02488851547241211,
+                -1.0533350706100464,
+                -0.5756015777587891,
+                0.5202426910400391,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_open",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7748498320579529,
+                2.09706974029541,
+                -1.5114456415176392,
+                -0.5400420427322388,
+                0.912463366985321,
+                0.2702499330043793
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.017332041517940124,
+              "last_action": [
+                1.5590490102767944,
+                1.8391036987304688,
+                0.023639440536499023,
+                -1.052954077720642,
+                -0.5750585794448853,
+                0.519305944442749,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8078354597091675,
+                2.1451826095581055,
+                -2.6215808391571045,
+                -0.44345173239707947,
+                1.2200000286102295,
+                -0.21560336649417877
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.05623621595664916,
+              "last_action": [
+                1.6156892776489258,
+                1.89031982421875,
+                -2.2432374954223633,
+                -0.8869258165359497,
+                0.3599998950958252,
+                -0.4312298893928528,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.012813507579267025,
+                0.924537718296051,
+                -1.515020728111267,
+                0.013785777613520622,
+                1.21999990940094,
+                0.023771150037646294
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.12140153729056676,
+              "last_action": [
+                0.016619674861431122,
+                -0.5509129762649536,
+                -0.030129432678222656,
+                0.019645361229777336,
+                0.3599996566772461,
+                0.03239548206329346,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 3,
+          "request_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_03/motion_request.json",
+          "result_path": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_03/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.0005070534534752369,
+                0.9245234727859497,
+                -1.5146056413650513,
+                -0.0006092299008741975,
+                1.2200000286102295,
+                -0.0010136842029169202
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12132439223920835,
+              "last_action": [
+                -0.0006570088444277644,
+                -0.5509356260299683,
+                -0.029575586318969727,
+                -0.0008276136359199882,
+                0.3599998950958252,
+                -0.0013561046216636896,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.24925218522548676,
+                1.8929609060287476,
+                -2.1284332275390625,
+                0.05789494514465332,
+                1.2200000286102295,
+                -0.3809434771537781
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.013824768810360303,
+              "last_action": [
+                -0.498508483171463,
+                1.3859586715698242,
+                -1.256941795349121,
+                0.11578904837369919,
+                0.29275965690612793,
+                -0.7618780136108398,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.24778445065021515,
+                1.9797260761260986,
+                -1.1925944089889526,
+                0.2137160301208496,
+                0.28964653611183167,
+                -0.5613842010498047
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.016487100412838216,
+              "last_action": [
+                -0.49844086170196533,
+                1.6265745162963867,
+                0.6301784515380859,
+                0.4024212658405304,
+                -1.8236665725708008,
+                -1.1224709749221802,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_grasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.23755380511283875,
+                2.2210593223571777,
+                -1.4504995346069336,
+                0.5268927216529846,
+                0.2240806370973587,
+                -0.7878741025924683
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.08593156176739124,
+              "last_action": [
+                -0.47137799859046936,
+                2.36014461517334,
+                0.13878130912780762,
+                0.8208869695663452,
+                -2.082681655883789,
+                -1.5374066829681396,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_close",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.23841165006160736,
+                2.2185659408569336,
+                -1.4510829448699951,
+                0.5248357653617859,
+                0.2242339551448822,
+                -0.790630578994751
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.00137411352586632,
+              "last_action": [
+                -0.4753899574279785,
+                2.042133331298828,
+                0.09849119186401367,
+                1.0534167289733887,
+                -1.951308012008667,
+                -1.5755641460418701,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.2596798539161682,
+                1.823108196258545,
+                -1.1086537837982178,
+                0.15816277265548706,
+                0.40685683488845825,
+                -0.5250638723373413
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.0017077797833051978,
+              "last_action": [
+                -0.5193532109260559,
+                1.2412006855010986,
+                0.7784028053283691,
+                0.314390629529953,
+                -1.5874804258346558,
+                -1.0431678295135498,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.2595843970775604,
+                1.7499902248382568,
+                -1.9093559980392456,
+                0.06491897255182266,
+                1.2200003862380981,
+                -0.39865192770957947
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.00632880878727846,
+              "last_action": [
+                -0.519141435623169,
+                1.0944578647613525,
+                -0.8233778476715088,
+                0.1289985328912735,
+                0.15281128883361816,
+                -0.79124516248703,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_transport",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7987052202224731,
+                2.108900308609009,
+                -2.510605573654175,
+                -0.43956297636032104,
+                1.2200000286102295,
+                0.5208590626716614
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.04484399253453374,
+              "last_action": [
+                1.5973052978515625,
+                1.810621738433838,
+                -2.0267443656921387,
+                -0.8794533014297485,
+                0.3599998950958252,
+                1.0475053787231445,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_place",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7848950624465942,
+                1.8980361223220825,
+                -1.4457496404647827,
+                -0.6675405502319336,
+                0.7456845641136169,
+                1.0974973440170288
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 37,
+              "steps_requested": 100,
+              "position_error_m": 0.09001168741033151,
+              "last_action": [
+                1.5688811540603638,
+                1.6548385620117188,
+                0.2543168067932129,
+                -1.3252317905426025,
+                -0.9100197553634644,
+                2.186483383178711,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "seed130": {
+      "source_execution_dir": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution",
+      "object_order": [
+        "mustard_bottle",
+        "box_object",
+        "banana"
+      ],
+      "objects": {
+        "mustard_bottle": {
+          "name": "mustard_bottle",
+          "center_w": [
+            0.9522405795504407,
+            0.13132822917203632,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            0.9522405795504407,
+            0.13132822917203632,
+            0.9286803228527791
+          ],
+          "video_center_w": [
+            0.8844602484035684,
+            0.13759370334717616,
+            0.9202502320777772
+          ],
+          "attempt_number": 1
+        },
+        "box_object": {
+          "name": "box_object",
+          "center_w": [
+            1.08371967008609,
+            0.254338494112857,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            1.08371967008609,
+            0.254338494112857,
+            0.891968956460859
+          ],
+          "video_center_w": [
+            1.0454533743976586,
+            0.2871249675320694,
+            0.885762346086831
+          ],
+          "attempt_number": 1
+        },
+        "banana": {
+          "name": "banana",
+          "center_w": [
+            1.0412896793286377,
+            0.05933596509031337,
+            0.8766426479059952
+          ],
+          "ee_center_w": [
+            1.0412896793286377,
+            0.05933596509031337,
+            0.8590310184302934
+          ],
+          "video_center_w": [
+            1.0072247065681388,
+            0.059877256068376815,
+            0.8571627642409935
+          ],
+          "attempt_number": 1
+        }
+      },
+      "episodes": [
+        {
+          "object": "mustard_bottle",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/01_mustard_bottle/motion_request.json",
+          "result_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/01_mustard_bottle/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.01798253320157528,
+                0.9245630502700806,
+                -1.516048789024353,
+                -0.01867126300930977,
+                1.21999990940094,
+                -0.03278119117021561
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12156258188600037,
+              "last_action": [
+                -0.023538831621408463,
+                -0.55088210105896,
+                -0.031291961669921875,
+                -0.02677113562822342,
+                0.3599996566772461,
+                -0.044985659420490265,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp_stage",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.3005705177783966,
+                2.025980234146118,
+                -2.384817123413086,
+                0.024795562028884888,
+                1.2200000286102295,
+                -0.24169176816940308
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.0350260856702083,
+              "last_action": [
+                -0.6011497974395752,
+                1.6520376205444336,
+                -1.7697076797485352,
+                0.04959076642990112,
+                0.3599998950958252,
+                -0.48337894678115845,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.30010414123535156,
+                1.8944132328033447,
+                -1.5856834650039673,
+                0.03132069483399391,
+                0.9027063250541687,
+                -0.26065340638160706
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 190,
+              "steps_requested": 120,
+              "position_error_m": 0.004370050831405027,
+              "last_action": [
+                -0.6002082824707031,
+                1.3888263702392578,
+                -0.17136693000793457,
+                0.06264138966798782,
+                -0.5945874452590942,
+                -0.5213068127632141,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_grasp",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 130,
+              "steps_requested": 100,
+              "position_error_m": 0.05593385827675441,
+              "last_action": [
+                -0.5864171385765076,
+                1.9718685150146484,
+                -0.25092625617980957,
+                0.07132726907730103,
+                -1.0982214212417603,
+                -0.5268061757087708,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_close",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 125,
+              "steps_requested": 55,
+              "position_error_m": 0.054335146308009584,
+              "last_action": [
+                -0.5864171385765076,
+                1.9718685150146484,
+                -0.25092625617980957,
+                0.07132726907730103,
+                -1.0982214212417603,
+                -0.5268061757087708,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_approach_lift",
+              "object": "mustard_bottle",
+              "execution_mode": "curobo_joint_position_baseline_interp",
+              "target_source": "curobo_target",
+              "target_arm_joint_pos": [
+                -0.30431801080703735,
+                1.7873094081878662,
+                -1.6460185050964355,
+                0.030100377276539803,
+                1.0701943635940552,
+                -0.25949835777282715
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 190,
+              "steps_requested": 120,
+              "position_error_m": 0.004957858810340861,
+              "last_action": [
+                -0.6086360216140747,
+                1.1746187210083008,
+                -0.2920370101928711,
+                0.060200754553079605,
+                -0.2596113681793213,
+                -0.5189967155456543,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_lift",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.3045693635940552,
+                1.8899680376052856,
+                -2.145328998565674,
+                0.02660500817000866,
+                1.220000147819519,
+                -0.25071290135383606
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.02688325357394028,
+              "last_action": [
+                -0.6091098785400391,
+                1.373387336730957,
+                -1.2963976860046387,
+                0.05250493809580803,
+                0.3600001335144043,
+                -0.4955354928970337,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_transport",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9664354920387268,
+                2.071577310562134,
+                -2.49934720993042,
+                -0.44120654463768005,
+                1.2200019359588623,
+                0.8330257534980774
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.06308838240466291,
+              "last_action": [
+                1.9327106475830078,
+                1.7356986999511719,
+                -2.0050525665283203,
+                -0.8818584680557251,
+                0.3600037097930908,
+                1.6713207960128784,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_place",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9384751915931702,
+                1.92289137840271,
+                -1.4450936317443848,
+                -0.5619149208068848,
+                0.8792402148246765,
+                1.3227779865264893
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.0729799279913676,
+              "last_action": [
+                1.8791747093200684,
+                1.6780390739440918,
+                0.2714848518371582,
+                -1.094311237335205,
+                -0.635108470916748,
+                2.6511125564575195,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_open",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9408938884735107,
+                1.9248762130737305,
+                -1.448194146156311,
+                -0.5582548379898071,
+                0.8766054511070251,
+                1.3247915506362915
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.0730159663153489,
+              "last_action": [
+                1.8797192573547363,
+                1.6785402297973633,
+                0.2696564197540283,
+                -1.0925917625427246,
+                -0.6343890428543091,
+                2.6494808197021484,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_mustard_bottle_lift_retract",
+              "object": "mustard_bottle",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.9665067195892334,
+                2.067004919052124,
+                -2.5030715465545654,
+                -0.4412878155708313,
+                1.2200000286102295,
+                0.835138738155365
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.06395552749473657,
+              "last_action": [
+                1.9330307245254517,
+                1.734081745147705,
+                -2.006216049194336,
+                -0.8826203346252441,
+                0.3599998950958252,
+                1.670238733291626,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.005252431612461805,
+                0.9245281219482422,
+                -1.5145505666732788,
+                0.00670319190248847,
+                1.21999990940094,
+                0.010702604427933693
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.12132117226830666,
+              "last_action": [
+                0.006568692624568939,
+                -0.5509300231933594,
+                -0.029537200927734375,
+                0.009242177940905094,
+                0.3599996566772461,
+                0.014142097905278206,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "box_object",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/02_box_object/motion_request.json",
+          "result_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/02_box_object/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.023058919236063957,
+                0.9245606064796448,
+                -1.516530990600586,
+                -0.022710349410772324,
+                1.21999990940094,
+                -0.040905654430389404
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12164787914399235,
+              "last_action": [
+                -0.03047073632478714,
+                -0.5508730411529541,
+                -0.031899452209472656,
+                -0.03295954689383507,
+                0.3599996566772461,
+                -0.05667209252715111,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_pregrasp_stage",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5728131532669067,
+                2.086972713470459,
+                -2.6197054386138916,
+                7.19475337973563e-06,
+                1.21999990940094,
+                0.878767192363739
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.07306971926139377,
+              "last_action": [
+                -1.1456410884857178,
+                1.774010181427002,
+                -2.2394700050354004,
+                1.5311656170524657e-05,
+                0.3599996566772461,
+                1.7575503587722778,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_pregrasp",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5728217363357544,
+                2.02348256111145,
+                -1.5699340105056763,
+                7.85987049312098e-06,
+                1.2044904232025146,
+                0.8787723183631897
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 1.154299451015128e-05,
+              "last_action": [
+                -1.145639419555664,
+                1.6468877792358398,
+                -0.13983154296875,
+                1.5545141650363803e-05,
+                0.008943319320678711,
+                1.7575418949127197,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_grasp",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.543613851070404,
+                2.0381622314453125,
+                -1.408603310585022,
+                0.0026213449891656637,
+                0.8532519340515137,
+                0.8872025012969971
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.07870052973495863,
+              "last_action": [
+                -1.1446864604949951,
+                1.9963245391845703,
+                0.2530019283294678,
+                0.008855702355504036,
+                -0.7482923269271851,
+                1.7530591487884521,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_close",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5455134510993958,
+                2.034268856048584,
+                -1.406488060951233,
+                0.0020285106729716063,
+                0.8569047451019287,
+                0.8866539001464844
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.00156105702597257,
+              "last_action": [
+                -1.087422251701355,
+                1.675666332244873,
+                0.18369174003601074,
+                0.005291630048304796,
+                -0.6937215328216553,
+                1.7741822004318237,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_approach_lift",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5726616978645325,
+                2.007737874984741,
+                -1.7842272520065308,
+                -3.8949583540670574e-05,
+                1.2199996709823608,
+                0.8765260577201843
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.025098481752403198,
+              "last_action": [
+                -1.1455589532852173,
+                1.6089229583740234,
+                -0.5734751224517822,
+                -0.0004674337978940457,
+                0.3599991798400879,
+                1.7577563524246216,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_lift",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.5724400281906128,
+                2.093271255493164,
+                -2.618093252182007,
+                -0.0013328964123502374,
+                1.2200053930282593,
+                0.8767774105072021
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.07169364831879906,
+              "last_action": [
+                -1.1450374126434326,
+                1.778327465057373,
+                -2.2433924674987793,
+                -0.002011982025578618,
+                0.36001086235046387,
+                1.757230281829834,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_transport",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6513288617134094,
+                2.2699503898620605,
+                -2.748769760131836,
+                -0.0022806324996054173,
+                1.220007061958313,
+                2.094390392303467
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.01695959424247046,
+              "last_action": [
+                1.30255925655365,
+                2.1316962242126465,
+                -2.503511905670166,
+                -0.007740946486592293,
+                0.3600142002105713,
+                4.205050468444824,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_place",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.667971670627594,
+                2.4710662364959717,
+                -2.2364678382873535,
+                0.00967129971832037,
+                1.2200344800949097,
+                2.094392776489258
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.02579916272968771,
+              "last_action": [
+                1.3033698797225952,
+                2.577317237854004,
+                -1.4587326049804688,
+                0.0011583250015974045,
+                0.36006879806518555,
+                4.208029747009277,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_box_object_open",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6637237071990967,
+                2.4821174144744873,
+                -2.2297091484069824,
+                0.005011358764022589,
+                1.2200164794921875,
+                2.0943984985351562
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.021382741016649304,
+              "last_action": [
+                1.302586555480957,
+                2.575474262237549,
+                -1.4512438774108887,
+                0.000533214770257473,
+                0.3600327968597412,
+                4.206643581390381,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_box_object_lift_retract",
+              "object": "box_object",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.6512846350669861,
+                2.264491319656372,
+                -2.7491514682769775,
+                -0.0037863715551793575,
+                1.21999990940094,
+                2.094399929046631
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.02005136416529111,
+              "last_action": [
+                1.3025840520858765,
+                2.1289143562316895,
+                -2.498228073120117,
+                -0.007572739385068417,
+                0.3599996566772461,
+                4.203606605529785,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.9179536700248718,
+                0.907872200012207,
+                -1.5807394981384277,
+                0.35646626353263855,
+                1.220000147819519,
+                -0.5121924877166748
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.14087585995959437,
+              "last_action": [
+                -1.5738670825958252,
+                -0.610223650932312,
+                -0.1444108486175537,
+                0.4508453607559204,
+                0.3600001335144043,
+                -1.2864587306976318,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 1,
+          "request_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_01/motion_request.json",
+          "result_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_01/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.0003070223901886493,
+                0.9245244860649109,
+                -1.514802098274231,
+                -0.00038213288644328713,
+                1.2200000286102295,
+                -0.0006312932819128036
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12135124171611097,
+              "last_action": [
+                -0.0003999044420197606,
+                -0.5509320497512817,
+                -0.02979421615600586,
+                -0.0005084934527985752,
+                0.3599998950958252,
+                -0.0008402299135923386,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17285120487213135,
+                1.4803003072738647,
+                -1.573255181312561,
+                0.021445870399475098,
+                1.1347306966781616,
+                -0.31032463908195496
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 3.424349974917821e-06,
+              "last_action": [
+                -0.34570637345314026,
+                0.5606331825256348,
+                -0.14654326438903809,
+                0.04289159178733826,
+                -0.13050460815429688,
+                -0.6206581592559814,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17292344570159912,
+                1.7130913734436035,
+                -0.7498456835746765,
+                0.24370746314525604,
+                0.08081261813640594,
+                -0.5442651510238647
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 9.335530812904315e-06,
+              "last_action": [
+                -0.3458511531352997,
+                1.0262203216552734,
+                1.5003260374069214,
+                0.4874187707901001,
+                -2.2383761405944824,
+                -1.0885491371154785,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_grasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.1764659583568573,
+                2.035680055618286,
+                -1.015307068824768,
+                -0.5298560261726379,
+                -0.1484001874923706,
+                0.44555649161338806
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.05949022843726284,
+              "last_action": [
+                -0.37460264563560486,
+                1.8925743103027344,
+                0.9801239967346191,
+                -1.061648964881897,
+                -2.5986108779907227,
+                0.5717211365699768,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_close",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17624527215957642,
+                2.034351110458374,
+                -1.0170414447784424,
+                -0.5605306625366211,
+                -0.14719296991825104,
+                0.45879867672920227
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.0008482624595481778,
+              "last_action": [
+                -0.3553050756454468,
+                1.6703109741210938,
+                0.9659419059753418,
+                -1.0897048711776733,
+                -2.6936137676239014,
+                0.9194068908691406,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.1781526356935501,
+                1.4771522283554077,
+                -0.7112393975257874,
+                0.0824456512928009,
+                0.2767515778541565,
+                -0.3849206864833832
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 7.95765486539004e-06,
+              "last_action": [
+                -0.35630932450294495,
+                0.5543403625488281,
+                1.5775400400161743,
+                0.16489167511463165,
+                -1.8465030193328857,
+                -0.7698391079902649,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17813313007354736,
+                1.3591121435165405,
+                -1.4542014598846436,
+                0.02478593960404396,
+                1.1370114088058472,
+                -0.3159995675086975
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 9.243798637575605e-06,
+              "last_action": [
+                -0.35626357793807983,
+                0.31818652153015137,
+                0.0915827751159668,
+                0.04957210272550583,
+                -0.1259443759918213,
+                -0.6319951415061951,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_transport",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8062653541564941,
+                2.083664655685425,
+                -2.4537875652313232,
+                -0.48893851041793823,
+                1.2200000286102295,
+                0.5425146818161011
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.040334151367331345,
+              "last_action": [
+                1.6125483512878418,
+                1.7674040794372559,
+                -1.907646656036377,
+                -0.9778811931610107,
+                0.3599998950958252,
+                1.0850348472595215,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_place",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7900874018669128,
+                2.0615603923797607,
+                -1.3991456031799316,
+                -0.7893226742744446,
+                0.7241131067276001,
+                1.1970230340957642
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.013878649185643455,
+              "last_action": [
+                1.58864164352417,
+                1.7596745491027832,
+                0.23627471923828125,
+                -1.557823896408081,
+                -0.9533758163452148,
+                2.3944756984710693,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_open",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7995173335075378,
+                2.0689821243286133,
+                -1.4117425680160522,
+                -0.7745369672775269,
+                0.7080003023147583,
+                1.1917527914047241
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "steps_requested": 70,
+              "position_error_m": 0.01518504116051676,
+              "last_action": [
+                1.5916426181793213,
+                1.763871669769287,
+                0.2280566692352295,
+                -1.554703712463379,
+                -0.9492412805557251,
+                2.392249584197998,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.8062586188316345,
+                2.0836100578308105,
+                -2.453561305999756,
+                -0.48888805508613586,
+                1.2200000286102295,
+                0.542595386505127
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.04030914116814963,
+              "last_action": [
+                1.6125346422195435,
+                1.7673282623291016,
+                -1.907423973083496,
+                -0.9778317213058472,
+                0.3599998950958252,
+                1.0851048231124878,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "99_final_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.005187090486288071,
+                0.9245203733444214,
+                -1.514182209968567,
+                0.006224034354090691,
+                1.21999990940094,
+                0.010204611346125603
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "steps_requested": 90,
+              "position_error_m": 0.12126893270016197,
+              "last_action": [
+                0.00657055526971817,
+                -0.5509357452392578,
+                -0.02912616729736328,
+                0.008683870546519756,
+                0.3599996566772461,
+                0.013630249537527561,
+                0.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 2,
+          "request_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_02/motion_request.json",
+          "result_path": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/03_banana/attempt_02/motion_result.json",
+          "ok": true,
+          "segments": [
+            {
+              "name": "00_initial_retract",
+              "object": null,
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.00020193227101117373,
+                0.9245254397392273,
+                -1.514952301979065,
+                -0.0002813451283145696,
+                1.2200000286102295,
+                -0.0004477488109841943
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "steps_requested": 100,
+              "position_error_m": 0.12137232921215128,
+              "last_action": [
+                -0.0002613973629195243,
+                -0.5509316921234131,
+                -0.029961109161376953,
+                -0.0003603363293223083,
+                0.3599998950958252,
+                -0.0005847756983712316,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.09315796196460724,
+                1.585911512374878,
+                -1.9094010591506958,
+                -0.14317212998867035,
+                1.2200000286102295,
+                0.12018314003944397
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "steps_requested": 140,
+              "position_error_m": 0.09396710866498584,
+              "last_action": [
+                -0.18631833791732788,
+                0.7718274593353271,
+                -0.8187656402587891,
+                -0.28634071350097656,
+                0.3599998950958252,
+                0.24036675691604614,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.10634688287973404,
+                1.7036641836166382,
+                -0.7989462018013,
+                -0.16486188769340515,
+                0.7937395572662354,
+                0.2967013716697693
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.009168950961738944,
+              "last_action": [
+                -0.21914146840572357,
+                1.0367157459259033,
+                1.4348766803741455,
+                -0.3570463955402374,
+                -0.7979623079299927,
+                0.5897167921066284,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_grasp",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17735914885997772,
+                1.5829819440841675,
+                -0.6153033375740051,
+                -0.06754248589277267,
+                0.4624255299568176,
+                -0.1574934720993042
+              ],
+              "target_gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 293,
+              "steps_requested": 100,
+              "position_error_m": 0.12333287282766751,
+              "last_action": [
+                -0.3734647333621979,
+                1.0856521129608154,
+                1.8626528978347778,
+                -0.45593324303627014,
+                -1.7945266962051392,
+                0.0018950998783111572,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "name": "01_banana_close",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.17786753177642822,
+                1.5825759172439575,
+                -0.6155211925506592,
+                -0.06608162820339203,
+                0.4634036421775818,
+                -0.16091348230838776
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 203,
+              "steps_requested": 55,
+              "position_error_m": 0.0001408922166758327,
+              "last_action": [
+                -0.3551463782787323,
+                0.7657840251922607,
+                1.7694032192230225,
+                -0.1347074806690216,
+                -1.4749938249588013,
+                -0.3157622814178467,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.08210767060518265,
+                1.5949945449829102,
+                -0.9109002947807312,
+                -0.14475223422050476,
+                1.0549033880233765,
+                0.266461044549942
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 428,
+              "steps_requested": 120,
+              "position_error_m": 0.0006149957714728007,
+              "last_action": [
+                -0.16425956785678864,
+                0.786963939666748,
+                1.1763396263122559,
+                -0.2901191711425781,
+                -0.2895989418029785,
+                0.5390928387641907,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_lift",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                -0.06406523287296295,
+                1.6046371459960938,
+                -1.9251673221588135,
+                -0.14202910661697388,
+                1.2199996709823608,
+                0.14633753895759583
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "steps_requested": 120,
+              "position_error_m": 0.09403010524148764,
+              "last_action": [
+                -0.1281830072402954,
+                0.8039283752441406,
+                -0.8559746742248535,
+                -0.28433847427368164,
+                0.3599991798400879,
+                0.2988168001174927,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_transport",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7101114392280579,
+                2.143246650695801,
+                -2.6838884353637695,
+                -0.053712278604507446,
+                1.2200051546096802,
+                0.9481194615364075
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "steps_requested": 210,
+              "position_error_m": 0.061106752429866074,
+              "last_action": [
+                1.4202357530593872,
+                1.878725528717041,
+                -2.3738694190979004,
+                -0.10488740354776382,
+                0.36001014709472656,
+                1.901700496673584,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            },
+            {
+              "name": "01_banana_place",
+              "object": "banana",
+              "execution_mode": "cartesian_pose_controller",
+              "target_source": "actual_endpoint",
+              "target_arm_joint_pos": [
+                0.7026901245117188,
+                2.0839996337890625,
+                -1.9258131980895996,
+                -0.04056204482913017,
+                1.2200019359588623,
+                0.988371729850769
+              ],
+              "target_gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 26,
+              "steps_requested": 100,
+              "position_error_m": 0.11989211633485494,
+              "last_action": [
+                1.4051159620285034,
+                1.9477710723876953,
+                -0.590160608291626,
+                -0.07872926443815231,
+                0.22772979736328125,
+                1.980852484703064,
+                -0.10000000149011612,
+                0.10000000149011612
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

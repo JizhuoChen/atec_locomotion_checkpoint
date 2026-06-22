@@ -34,6 +34,10 @@
 
 # Third-party source can be tracked, but generated/heavy local artifacts stay out.
 /third_party/openssl11/
+/third_party/contact_graspnet/
+/third_party/curobo/
+/third_party/graspgen/
+/third_party/graspgen_models/
 /third_party/**/.git/
 /third_party/**/build/
 /third_party/**/dist/
@@ -114,6 +118,12 @@ _build
 
 # Teleop Recorded Dataset
 /datasets/
+
+# Local packaged submissions / source-upload bundles
+/submissions/*.zip
+/submissions/task_e_act_baseline_clean/
+/submissions/task_e_newest_policy_root_submission/
+/submissions/task_e_strict_online_root_submission/
 
 # Tests
 tests/

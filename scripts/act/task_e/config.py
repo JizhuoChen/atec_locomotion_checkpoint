@@ -16,8 +16,10 @@ __all__ = [
     "GRIPPER_OPEN_POS", "GRIPPER_CLOSE_POS", "ACTION_SCALE",
     # state machine
     "STEPS", "STATE_ORDER",
+    "POSITION_PRIORITY_GRASP_OBJECTS", "POSITION_PRIORITY_GRASP_STATES",
+    "POSITION_PRIORITY_ORIENTATION_WEIGHT",
     # geometry
-    "PRE_GRASP_CLEARANCE", "GRASP_Z_OFFSET",
+    "PRE_GRASP_CLEARANCE", "GRASP_XY_OFFSETS", "GRASP_Z_OFFSET", "GRASP_Z_OFFSETS",
     "CARRY_Z", "PLACE_HEIGHT",
     "RETRACT_POS_X", "RETRACT_POS_Y",
     "DEFAULT_PLACE_QUAT_W",
@@ -25,6 +27,7 @@ __all__ = [
     "BASKET_IN_X", "BASKET_IN_Y",
     # spawn regions
     "OBJ_SPAWN_X_MIN", "OBJ_SPAWN_X_MAX", "OBJ_SPAWN_Z", "OBJ_SPAWN_Y_BANDS",
+    "OBJ_UPRIGHT_AXIS_CHECKS",
     "OBJ_HALF_EXTENTS", "OBJ_BBOX_MARGIN",
     # camera
     "CAM_POS", "CAM_ROT", "CAM_H", "CAM_W",
@@ -65,11 +68,29 @@ STEPS: dict[str, int] = {
 STATE_ORDER = ["INIT", "PRE_GRASP", "REACH", "CLOSE", "LIFT",
                "TRANSPORT", "PLACE", "OPEN", "LIFT_RETRACT", "RETRACT"]
 
+# For object 1, exact pose IK was observed to hold the gripper near one X
+# position while the target object X changed. Use weighted pose IK during the
+# object-centered grasp phases so XYZ centering dominates but orientation still
+# keeps the gripper close to top-down.
+POSITION_PRIORITY_GRASP_OBJECTS = {1}
+POSITION_PRIORITY_GRASP_STATES = {"PRE_GRASP", "REACH", "CLOSE", "LIFT"}
+POSITION_PRIORITY_ORIENTATION_WEIGHT = 0.01
+
 # ------------------------------------------------------------------ #
 # Geometry
 # ------------------------------------------------------------------ #
 PRE_GRASP_CLEARANCE = 0.12   # metres above object before descent
-GRASP_Z_OFFSET      = 0.09   # metres: gripper approach height above object centre
+GRASP_XY_OFFSETS = {
+    1: (0.0, 0.0),  # Sugar box: grasp around the centreline when the seed starts upright.
+    2: (0.0, 0.0),
+    3: (0.0, 0.0),
+}
+GRASP_Z_OFFSET      = 0.09   # fallback: gripper approach height above object centre
+GRASP_Z_OFFSETS = {
+    1: 0.06,  # Sugar box
+    2: 0.09,  # Mustard bottle
+    3: 0.09,  # Banana
+}
 
 CARRY_Z      = TABLE_TOP_Z + 0.40   # safe carry height
 PLACE_HEIGHT = TABLE_TOP_Z + 0.15   # height at which to release into basket
@@ -81,19 +102,24 @@ DEFAULT_PLACE_QUAT_W = [0.0, 1.0, 0.0, 0.0]   # top-down orientation (w,x,y,z)
 # ------------------------------------------------------------------ #
 # Object spawn regions
 #
-#   object_1  Y ∈ [0.21, 0.28]   (top band)
-#   object_2  Y ∈ [0.12, 0.19]   (middle band)
+#   object_1  Y ∈ [0.25, 0.29]   (top band)
+#   object_2  Y ∈ [0.14, 0.20]   (middle band)
 #   object_3  Y ∈ [0.03, 0.10]   (bottom band, closest to basket)
 # ------------------------------------------------------------------ #
 OBJ_SPAWN_X_MIN = TABLE_CENTER_X - 0.10
 OBJ_SPAWN_X_MAX = TABLE_CENTER_X + 0.10
 OBJ_SPAWN_Z     = TABLE_TOP_Z + 0.03
+OBJ_UPRIGHT_AXIS_CHECKS = {
+    # Sugar box: the env's object_1 reset quaternion maps local X to world Z.
+    # If it has fallen/laid down, this alignment drops toward 0.
+    1: (0, 0.85),  # object local axis index, minimum |axis dot world_z|
+}
 
 # Per-object Y-bands: {object_idx: (y_min, y_max)}
 OBJ_SPAWN_Y_BANDS = {
-    1: (TABLE_CENTER_Y + 0.20, TABLE_CENTER_Y + 0.25),
-    2: (TABLE_CENTER_Y + 0.12, TABLE_CENTER_Y + 0.19),
-    3: (TABLE_CENTER_Y + 0.03, TABLE_CENTER_Y + 0.10),
+    1: (TABLE_CENTER_Y + 0.25, TABLE_CENTER_Y + 0.29),
+    2: (TABLE_CENTER_Y + 0.14, TABLE_CENTER_Y + 0.20),
+    3: (TABLE_CENTER_Y + 0.03, TABLE_CENTER_Y + 0.09),
 }
 
 # Per-object 2-D bounding-box half-extents (metres, world XY plane, scale=1).

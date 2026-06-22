@@ -1,6 +1,7 @@
 # Created by skywoodsz on 2026/02/07.
 
 import argparse
+import importlib
 import os
 import time
 import json
@@ -13,7 +14,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from isaaclab.app import AppLauncher
 
-from demo.solution import AlgSolution
+solution_module = os.environ.get("ATEC_SOLUTION_MODULE", "demo.solution")
+AlgSolution = importlib.import_module(solution_module).AlgSolution
 solution = AlgSolution()
 
 # -----------------------------------------------------------------------------

@@ -23,7 +23,13 @@ Example usage::
 import torch
 from isaaclab.assets import Articulation
 from isaaclab.controllers import DifferentialIKController, DifferentialIKControllerCfg
-from isaaclab.utils.math import subtract_frame_transforms, quat_inv, matrix_from_quat, quat_rotate_inverse
+from isaaclab.utils.math import (
+    compute_pose_error,
+    matrix_from_quat,
+    quat_inv,
+    quat_rotate_inverse,
+    subtract_frame_transforms,
+)
 
 
 class CartesianController:
@@ -74,6 +80,7 @@ class CartesianController:
         self.robot = robot
         self.device = device
         self.command_type = command_type
+        self.lambda_val = lambda_val
         self.max_joint_delta = max_joint_delta
 
         # Resolve body and joint indices 
@@ -217,6 +224,87 @@ class CartesianController:
             self.ik_ctrl.set_command(torch.cat([ee_pos_b, ee_quat_b], dim=-1))
 
         return self._solve_ik_with_current_state(root_pose_w)
+
+    def compute_weighted_pose(
+        self,
+        ee_pos_w: torch.Tensor,
+        ee_quat_w: torch.Tensor,
+        position_weight: float = 1.0,
+        orientation_weight: float = 0.25,
+    ) -> torch.Tensor:
+        """Compute arm joints from a world-frame pose with lower orientation priority.
+
+        This is useful when the end-effector must stay centered on a small
+        object, but a fully constrained 6-D pose solve sacrifices position to
+        satisfy wrist orientation. The solve uses the same damped least-squares
+        update as the pose controller after scaling task-space rows.
+        """
+        root_pose_w = self.robot.data.root_pose_w
+        ee_pos_des_b, ee_quat_des_b = subtract_frame_transforms(
+            root_pose_w[:, :3], root_pose_w[:, 3:],
+            ee_pos_w, ee_quat_w,
+        )
+        return self.compute_weighted_pose_base(
+            ee_pos_des_b,
+            ee_quat_des_b,
+            position_weight=position_weight,
+            orientation_weight=orientation_weight,
+        )
+
+    def compute_weighted_pose_base(
+        self,
+        ee_pos_b: torch.Tensor,
+        ee_quat_b: torch.Tensor,
+        position_weight: float = 1.0,
+        orientation_weight: float = 0.25,
+    ) -> torch.Tensor:
+        """Compute arm joints from a base-frame weighted pose target."""
+        root_pose_w = self.robot.data.root_pose_w
+        jacobian = self.robot.root_physx_view.get_jacobians()[
+            :, self._jacobi_body_idx, :, self._jacobi_joint_ids
+        ]
+        base_rot_mat = matrix_from_quat(quat_inv(root_pose_w[:, 3:]))
+        jacobian[:, :3] = torch.bmm(base_rot_mat, jacobian[:, :3])
+        jacobian[:, 3:] = torch.bmm(base_rot_mat, jacobian[:, 3:])
+
+        ee_pose_w_cur = self.robot.data.body_pose_w[:, self.ee_idx]
+        ee_pos_b_cur, ee_quat_b_cur = subtract_frame_transforms(
+            root_pose_w[:, :3], root_pose_w[:, 3:],
+            ee_pose_w_cur[:, :3], ee_pose_w_cur[:, 3:],
+        )
+        position_error, axis_angle_error = compute_pose_error(
+            ee_pos_b_cur, ee_quat_b_cur, ee_pos_b, ee_quat_b, rot_error_type="axis_angle"
+        )
+        pose_error = torch.cat((position_error, axis_angle_error), dim=1)
+        weights = torch.tensor(
+            [position_weight, position_weight, position_weight,
+             orientation_weight, orientation_weight, orientation_weight],
+            dtype=pose_error.dtype,
+            device=pose_error.device,
+        )
+        weighted_error = pose_error * weights
+        weighted_jacobian = jacobian * weights.view(1, 6, 1)
+
+        jacobian_T = torch.transpose(weighted_jacobian, dim0=1, dim1=2)
+        lambda_matrix = (self.lambda_val**2) * torch.eye(
+            n=weighted_jacobian.shape[1],
+            dtype=weighted_jacobian.dtype,
+            device=self.device,
+        )
+        delta = (
+            jacobian_T
+            @ torch.inverse(weighted_jacobian @ jacobian_T + lambda_matrix)
+            @ weighted_error.unsqueeze(-1)
+        ).squeeze(-1)
+
+        arm_jpos_cur = self.robot.data.joint_pos[:, self.arm_ids]
+        arm_jpos_des = arm_jpos_cur + delta
+        if self.max_joint_delta is not None:
+            delta = arm_jpos_des - arm_jpos_cur
+            delta = torch.clamp(delta, -self.max_joint_delta, self.max_joint_delta)
+            arm_jpos_des = arm_jpos_cur + delta
+
+        return arm_jpos_des
 
     def _solve_ik_with_current_state(self, root_pose_w: torch.Tensor) -> torch.Tensor:
         """Run IK solve from current robot state after command has been set."""

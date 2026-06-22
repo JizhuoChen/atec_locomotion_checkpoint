@@ -1,0 +1,3847 @@
+{
+  "schema": "atec.task_e.online_pose_references.v1",
+  "references": {
+    "seed120": {
+      "source_execution_dir": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution",
+      "episodes": [
+        {
+          "object": "mustard_bottle",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            1.0672859405478947,
+            0.15301240878534061,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            1.004938128340628,
+            0.16147674202769313,
+            0.9176738020684968
+          ],
+          "ee_center_w": [
+            1.0672859405478947,
+            0.15301240878534061,
+            0.9328552493958806
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.058966439217329025,
+                0.9243481159210205,
+                -1.5196887254714966,
+                -0.047000568360090256,
+                1.21999990940094,
+                -0.09457507729530334
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.126619428233598,
+                  0.13837854270679834,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.48785558342933655,
+                1.4992198944091797,
+                -1.600050687789917,
+                0.0939926877617836,
+                1.1809906959533691,
+                -0.2789461612701416
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.126619428233598,
+                  0.13837854270679834,
+                  1.1066838297053996
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.487880140542984,
+                1.4847617149353027,
+                -1.1031389236450195,
+                0.13494715094566345,
+                0.7014979720115662,
+                -0.3465048670768738
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.48787787556648254,
+                1.485115647315979,
+                -1.1149529218673706,
+                0.1339716762304306,
+                0.7129180431365967,
+                -0.3448961675167084
+              ],
+              "result_target_arm_joint_pos": [
+                -0.487880140542984,
+                1.4847617149353027,
+                -1.1031389236450195,
+                0.13494715094566345,
+                0.7014979720115662,
+                -0.3465048670768738
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_grasp",
+              "pose_w": {
+                "position": [
+                  1.063919955120414,
+                  0.15985727451561454,
+                  1.0066466358662376
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.4468923509120941,
+                1.7508115768432617,
+                -1.1784262657165527,
+                0.195424422621727,
+                0.365360289812088,
+                -0.3966825604438782
+              ],
+              "result_target_arm_joint_pos": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_close",
+              "pose_w": {
+                "position": [
+                  1.063919955120414,
+                  0.15985727451561454,
+                  1.0066466358662376
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.44752955436706543,
+                1.768857717514038,
+                -1.1839295625686646,
+                0.21393266320228577,
+                0.3509768843650818,
+                -0.40412646532058716
+              ],
+              "result_target_arm_joint_pos": [
+                -0.4559457302093506,
+                1.8330628871917725,
+                -1.1165251731872559,
+                0.19488421082496643,
+                0.36633825302124023,
+                -0.3986220359802246
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.15796916479019,
+                  0.12763917680239026,
+                  1.1567024266249806
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.5107398629188538,
+                1.3511962890625,
+                -1.1723185777664185,
+                0.12652431428432465,
+                0.9054344296455383,
+                -0.3407523036003113
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.5093316435813904,
+                1.3631314039230347,
+                -1.1703587770462036,
+                0.13045115768909454,
+                0.8931838274002075,
+                -0.34637466073036194
+              ],
+              "result_target_arm_joint_pos": [
+                -0.5107398629188538,
+                1.3511962890625,
+                -1.1723185777664185,
+                0.12652431428432465,
+                0.9054344296455383,
+                -0.3407523036003113
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_lift",
+              "pose_w": {
+                "position": [
+                  1.15796916479019,
+                  0.12763917680239026,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5108991265296936,
+                1.385787010192871,
+                -1.4811395406723022,
+                0.10766694694757462,
+                1.1824095249176025,
+                -0.30628710985183716
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_transport",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                1.0001622438430786,
+                2.069692850112915,
+                -2.459810972213745,
+                -0.5911988615989685,
+                1.2200018167495728,
+                0.9903619289398193
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_place",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9433152079582214,
+                1.9182460308074951,
+                -1.432682752609253,
+                -0.7533710598945618,
+                0.932698130607605,
+                1.6276627779006958
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_open",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9470498561859131,
+                1.9156018495559692,
+                -1.4271774291992188,
+                -0.7560272812843323,
+                0.9342106580734253,
+                1.6300277709960938
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06311850354495915,
+                  0.9517839696708505,
+                  -0.10454145624634228,
+                  -0.2814150200570975
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                1.0003169775009155,
+                2.065567970275879,
+                -2.4640212059020996,
+                -0.591609537601471,
+                1.2200000286102295,
+                0.9923298954963684
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.006306357216089964,
+                0.9245259165763855,
+                -1.5144336223602295,
+                0.007598405238240957,
+                1.21999990940094,
+                0.012438956648111343
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "box_object",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            1.0191041415371347,
+            0.2548824963316508,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            0.98628603164526,
+            0.28011870107960646,
+            0.885797740359997
+          ],
+          "ee_center_w": [
+            1.0191041415371347,
+            0.2548824963316508,
+            0.8893246302933786
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.05838748440146446,
+                0.9243521690368652,
+                -1.5196317434310913,
+                -0.04654505476355553,
+                1.21999990940094,
+                -0.09364907443523407
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.4913131594657898,
+                2.182252883911133,
+                -2.7038557529449463,
+                -2.6789846288011177e-06,
+                1.2200000286102295,
+                1.0209786891937256
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  1.0256735781318365
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5039204955101013,
+                2.1637814044952393,
+                -1.9255812168121338,
+                -0.007526702713221312,
+                1.219992995262146,
+                1.0188708305358887
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_grasp",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  0.9056735781318365
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5031468868255615,
+                2.2186331748962402,
+                -1.7250016927719116,
+                -0.0001531697198515758,
+                0.9652334451675415,
+                1.018623948097229
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_close",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  0.9056735781318365
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5038899779319763,
+                2.2143895626068115,
+                -1.720439076423645,
+                0.0005543868755921721,
+                0.9697331190109253,
+                1.0179719924926758
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  1.0856735781318365
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.4911523163318634,
+                2.2177276611328125,
+                -2.1584696769714355,
+                -0.0003673875180538744,
+                1.2200021743774414,
+                1.018874168395996
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_lift",
+              "pose_w": {
+                "position": [
+                  1.0120083572924772,
+                  0.20988454358543648,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.49097588658332825,
+                2.1883020401000977,
+                -2.703184127807617,
+                -0.0013377056457102299,
+                1.2200064659118652,
+                1.0189095735549927
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_transport",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6578502058982849,
+                2.269972562789917,
+                -2.749021291732788,
+                -0.032180119305849075,
+                1.2200067043304443,
+                2.094390630722046
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_place",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.671710193157196,
+                2.463489532470703,
+                -2.2533886432647705,
+                0.0012118798913434148,
+                1.220009207725525,
+                2.094393253326416
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_open",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6561225056648254,
+                2.480433464050293,
+                -2.234201192855835,
+                -0.0052039348520338535,
+                1.219999074935913,
+                2.094399929046631
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7274747708447986,
+                  -0.6861344312773612,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6578785181045532,
+                2.264627456665039,
+                -2.74939227104187,
+                -0.03391348943114281,
+                1.21999990940094,
+                2.094399929046631
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.8842743635177612,
+                0.9078063368797302,
+                -1.5782581567764282,
+                0.33593448996543884,
+                1.220000147819519,
+                -0.5086296796798706
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            0.961255471008128,
+            0.06647228731801932,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            0.9208170146667538,
+            0.06812891364159133,
+            0.857068121145316
+          ],
+          "ee_center_w": [
+            0.961255471008128,
+            0.06647228731801932,
+            0.8586078722258104
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.0003721172397490591,
+                0.9245232343673706,
+                -1.5146422386169434,
+                -0.0004388651577755809,
+                1.2200000286102295,
+                -0.0007399516762234271
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  0.9760082250230514,
+                  0.050330068353059455,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11459401249885559,
+                2.0264065265655518,
+                -2.3373959064483643,
+                -0.011319350451231003,
+                1.2200000286102295,
+                -0.2496001124382019
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "pose_w": {
+                "position": [
+                  0.9760082250230514,
+                  0.050330068353059455,
+                  0.9703458129185848
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11463989317417145,
+                2.0634403228759766,
+                -1.3260955810546875,
+                -0.03431890159845352,
+                0.3288329541683197,
+                -0.2193407416343689
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_grasp",
+              "pose_w": {
+                "position": [
+                  0.9096448106793266,
+                  0.05931105339821911,
+                  0.8707705190738679
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11716355383396149,
+                2.310915231704712,
+                -1.6480849981307983,
+                0.05222012847661972,
+                0.31069132685661316,
+                -0.3330751955509186
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_close",
+              "pose_w": {
+                "position": [
+                  0.9096448106793266,
+                  0.05931105339821911,
+                  0.8707705190738679
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11716297268867493,
+                2.3108785152435303,
+                -1.6480644941329956,
+                0.052220143377780914,
+                0.3106945753097534,
+                -0.33307644724845886
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0091899321949138,
+                  0.04583957583047962,
+                  1.0201334598409433
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11272396892309189,
+                1.8752379417419434,
+                -1.2403901815414429,
+                -0.029061496257781982,
+                0.43136879801750183,
+                -0.2238314300775528
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_lift",
+              "pose_w": {
+                "position": [
+                  1.0091899321949138,
+                  0.04583957583047962,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.11272139102220535,
+                1.8434884548187256,
+                -2.0400989055633545,
+                -0.012751144357025623,
+                1.21999990940094,
+                -0.24636277556419373
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_transport",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8029428720474243,
+                2.0910632610321045,
+                -2.475147247314453,
+                -0.4684320092201233,
+                1.2200000286102295,
+                0.5364325046539307
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_place",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7838596701622009,
+                2.0710315704345703,
+                -1.396217942237854,
+                -0.7466096878051758,
+                0.7265082001686096,
+                1.163102626800537
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_open",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7918000817298889,
+                2.077868700027466,
+                -1.3981527090072632,
+                -0.7355917692184448,
+                0.7167704105377197,
+                1.1612281799316406
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05836013335435347,
+                  0.954362950415646,
+                  0.06394070997361952,
+                  -0.28582693945266074
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8029366135597229,
+                2.091026544570923,
+                -2.4749460220336914,
+                -0.4683791995048523,
+                1.2200000286102295,
+                0.536507785320282
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.005065302364528179,
+                0.9245208501815796,
+                -1.5142128467559814,
+                0.006138091441243887,
+                1.21999990940094,
+                0.010020189918577671
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 2,
+          "ok": true,
+          "reference_center_w": [
+            0.9616541092994693,
+            0.06734350079122482,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            0.921357312430835,
+            0.06907750987702448,
+            0.8571340912420116
+          ],
+          "ee_center_w": [
+            0.9616541092994693,
+            0.06734350079122482,
+            0.8586529680674118
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.00037694050115533173,
+                0.9245237708091736,
+                -1.5146429538726807,
+                -0.0004455297312233597,
+                1.2200000286102295,
+                -0.0007502652588300407
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.0503604602590808,
+                  0.032576685804834735,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.054484523832798004,
+                1.7440954446792603,
+                -1.9377832412719727,
+                -0.14346076548099518,
+                1.2200000286102295,
+                -0.8877724409103394
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.0503604602590808,
+                  0.032576685804834735,
+                  0.972474720288221
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.051853835582733154,
+                1.8403284549713135,
+                -1.0416396856307983,
+                -0.3497423827648163,
+                0.42688965797424316,
+                -0.5870903730392456
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_grasp",
+              "pose_w": {
+                "position": [
+                  1.0023827257289268,
+                  0.05220090930008654,
+                  0.8642479821799214
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.08559967577457428,
+                2.0597870349884033,
+                -1.2247618436813354,
+                -0.4869966208934784,
+                0.20841015875339508,
+                -0.39598095417022705
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_close",
+              "pose_w": {
+                "position": [
+                  1.0023827257289268,
+                  0.05220090930008654,
+                  0.8642479821799214
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.07834944128990173,
+                2.0504579544067383,
+                -1.233583927154541,
+                -0.47002729773521423,
+                0.2097175121307373,
+                -0.4066354036331177
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0743493275241578,
+                  0.02276457405720883,
+                  1.026588089342371
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.02677883580327034,
+                1.6861449480056763,
+                -1.027918815612793,
+                -0.2754873037338257,
+                0.5963036417961121,
+                -0.6530059576034546
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_lift",
+              "pose_w": {
+                "position": [
+                  1.0743493275241578,
+                  0.02276457405720883,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.02582785300910473,
+                1.6452747583389282,
+                -1.805765986442566,
+                -0.15605972707271576,
+                1.2200000286102295,
+                -0.8550713062286377
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_transport",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8078490495681763,
+                2.145183563232422,
+                -2.6216418743133545,
+                -0.4434787631034851,
+                1.2200000286102295,
+                -0.21561796963214874
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_place",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7750661969184875,
+                2.093311309814453,
+                -1.5069079399108887,
+                -0.5317021012306213,
+                0.9118017554283142,
+                0.2637612521648407
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_open",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7748498320579529,
+                2.09706974029541,
+                -1.5114456415176392,
+                -0.5400420427322388,
+                0.912463366985321,
+                0.2702499330043793
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.15885744908391528,
+                  0.8937319936620368,
+                  0.39011263082664505,
+                  -0.15433589875640072
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8078354597091675,
+                2.1451826095581055,
+                -2.6215808391571045,
+                -0.44345173239707947,
+                1.2200000286102295,
+                -0.21560336649417877
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.012813507579267025,
+                0.924537718296051,
+                -1.515020728111267,
+                0.013785777613520622,
+                1.21999990940094,
+                0.023771150037646294
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 3,
+          "ok": true,
+          "reference_center_w": [
+            0.9606673605398759,
+            0.09630354977105353,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            0.9039796001365276,
+            0.09542185618578408,
+            0.857305473934771
+          ],
+          "ee_center_w": [
+            0.9606673605398759,
+            0.09630354977105353,
+            0.8600836779484692
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.0005070534534752369,
+                0.9245234727859497,
+                -1.5146056413650513,
+                -0.0006092299008741975,
+                1.2200000286102295,
+                -0.0010136842029169202
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.0131759010350438,
+                  0.09417561148447766,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.24925218522548676,
+                1.8929609060287476,
+                -2.1284332275390625,
+                0.05789494514465332,
+                1.2200000286102295,
+                -0.3809434771537781
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.0131759010350438,
+                  0.09417561148447766,
+                  0.9566727753304823
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.24778445065021515,
+                1.9797260761260986,
+                -1.1925944089889526,
+                0.2137160301208496,
+                0.28964653611183167,
+                -0.5613842010498047
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_grasp",
+              "pose_w": {
+                "position": [
+                  0.9511217212569819,
+                  0.10298700060314282,
+                  0.8543417526937891
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.23755380511283875,
+                2.2210593223571777,
+                -1.4504995346069336,
+                0.5268927216529846,
+                0.2240806370973587,
+                -0.7878741025924683
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_close",
+              "pose_w": {
+                "position": [
+                  0.9511217212569819,
+                  0.10298700060314282,
+                  0.8543417526937891
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.23841165006160736,
+                2.2185659408569336,
+                -1.4510829448699951,
+                0.5248357653617859,
+                0.2242339551448822,
+                -0.790630578994751
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0442029909240749,
+                  0.08976991692514508,
+                  1.007838286648829
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.2596798539161682,
+                1.823108196258545,
+                -1.1086537837982178,
+                0.15816277265548706,
+                0.40685683488845825,
+                -0.5250638723373413
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_lift",
+              "pose_w": {
+                "position": [
+                  1.0442029909240749,
+                  0.08976991692514508,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.2595843970775604,
+                1.7499902248382568,
+                -1.9093559980392456,
+                0.06491897255182266,
+                1.2200003862380981,
+                -0.39865192770957947
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_transport",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7987052202224731,
+                2.108900308609009,
+                -2.510605573654175,
+                -0.43956297636032104,
+                1.2200000286102295,
+                0.5208590626716614
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_place",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7848950624465942,
+                1.8980361223220825,
+                -1.4457496404647827,
+                -0.6675405502319336,
+                0.7456845641136169,
+                1.0974973440170288
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_open",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.05613066464930979,
+                  0.9603055729768325,
+                  0.06474925302745192,
+                  -0.2654620297293976
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            }
+          ]
+        }
+      ]
+    },
+    "seed130": {
+      "source_execution_dir": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution",
+      "episodes": [
+        {
+          "object": "mustard_bottle",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            0.9522405795504407,
+            0.13132822917203632,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            0.8844602484035684,
+            0.13759370334717616,
+            0.9202502320777772
+          ],
+          "ee_center_w": [
+            0.9522405795504407,
+            0.13132822917203632,
+            0.9286803228527791
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.01798253320157528,
+                0.9245630502700806,
+                -1.516048789024353,
+                -0.01867126300930977,
+                1.21999990940094,
+                -0.03278119117021561
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.0070490691177303,
+                  0.1205741016729222,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.3005705177783966,
+                2.025980234146118,
+                -2.384817123413086,
+                0.024795562028884888,
+                1.2200000286102295,
+                -0.24169176816940308
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.0070490691177303,
+                  0.1205741016729222,
+                  1.0893777634680109
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.30010414123535156,
+                1.8944132328033447,
+                -1.5856834650039673,
+                0.03132069483399391,
+                0.9027063250541687,
+                -0.26065340638160706
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.3001174032688141,
+                1.8975551128387451,
+                -1.6046946048736572,
+                0.031165290623903275,
+                0.9102644920349121,
+                -0.2602023482322693
+              ],
+              "result_target_arm_joint_pos": [
+                -0.30010414123535156,
+                1.8944132328033447,
+                -1.5856834650039673,
+                0.03132069483399391,
+                0.9027063250541687,
+                -0.26065340638160706
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_grasp",
+              "pose_w": {
+                "position": [
+                  0.956659528368602,
+                  0.13308039941688685,
+                  0.9811904874147187
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.2949613034725189,
+                2.0984151363372803,
+                -1.677466869354248,
+                0.0372605100274086,
+                0.6502605080604553,
+                -0.2631078362464905
+              ],
+              "result_target_arm_joint_pos": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_close",
+              "pose_w": {
+                "position": [
+                  0.956659528368602,
+                  0.13308039941688685,
+                  0.9811904874147187
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.2870396077632904,
+                2.106097936630249,
+                -1.6815284490585327,
+                0.05028436705470085,
+                0.6399024128913879,
+                -0.2632593810558319
+              ],
+              "result_target_arm_joint_pos": [
+                -0.2932085692882538,
+                2.18593430519104,
+                -1.6254631280899048,
+                0.03566363453865051,
+                0.6508893370628357,
+                -0.2634030878543854
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0322438394922946,
+                  0.11432095280093987,
+                  1.143471401494657
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": true,
+              "curobo_joint_position": [
+                -0.30431801080703735,
+                1.7873094081878662,
+                -1.6460185050964355,
+                0.030100377276539803,
+                1.0701943635940552,
+                -0.25949835777282715
+              ],
+              "result_actual_arm_joint_pos": [
+                -0.30385804176330566,
+                1.7977514266967773,
+                -1.644429087638855,
+                0.028597909957170486,
+                1.0599462985992432,
+                -0.261401891708374
+              ],
+              "result_target_arm_joint_pos": [
+                -0.30431801080703735,
+                1.7873094081878662,
+                -1.6460185050964355,
+                0.030100377276539803,
+                1.0701943635940552,
+                -0.25949835777282715
+              ],
+              "execution_mode": "curobo_joint_position_baseline_interp"
+            },
+            {
+              "name": "01_mustard_bottle_lift",
+              "pose_w": {
+                "position": [
+                  1.0322438394922946,
+                  0.11432095280093987,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.3045693635940552,
+                1.8899680376052856,
+                -2.145328998565674,
+                0.02660500817000866,
+                1.220000147819519,
+                -0.25071290135383606
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_transport",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9664354920387268,
+                2.071577310562134,
+                -2.49934720993042,
+                -0.44120654463768005,
+                1.2200019359588623,
+                0.8330257534980774
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_place",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9384751915931702,
+                1.92289137840271,
+                -1.4450936317443848,
+                -0.5619149208068848,
+                0.8792402148246765,
+                1.3227779865264893
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_open",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9408938884735107,
+                1.9248762130737305,
+                -1.448194146156311,
+                -0.5582548379898071,
+                0.8766054511070251,
+                1.3247915506362915
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_mustard_bottle_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.1400000000000001,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.047687073343309724,
+                  0.9747336880494506,
+                  -0.025972182623601688,
+                  -0.21666939365593973
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.9665067195892334,
+                2.067004919052124,
+                -2.5030715465545654,
+                -0.4412878155708313,
+                1.2200000286102295,
+                0.835138738155365
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.005252431612461805,
+                0.9245281219482422,
+                -1.5145505666732788,
+                0.00670319190248847,
+                1.21999990940094,
+                0.010702604427933693
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "box_object",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            1.08371967008609,
+            0.254338494112857,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            1.0454533743976586,
+            0.2871249675320694,
+            0.885762346086831
+          ],
+          "ee_center_w": [
+            1.08371967008609,
+            0.254338494112857,
+            0.891968956460859
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.023058919236063957,
+                0.9245606064796448,
+                -1.516530990600586,
+                -0.022710349410772324,
+                1.21999990940094,
+                -0.040905654430389404
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5728131532669067,
+                2.086972713470459,
+                -2.6197054386138916,
+                7.19475337973563e-06,
+                1.21999990940094,
+                0.878767192363739
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  1.02642577756064
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5728217363357544,
+                2.02348256111145,
+                -1.5699340105056763,
+                7.85987049312098e-06,
+                1.2044904232025146,
+                0.8787723183631897
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_grasp",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  0.9064257775606399
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.543613851070404,
+                2.0381622314453125,
+                -1.408603310585022,
+                0.0026213449891656637,
+                0.8532519340515137,
+                0.8872025012969971
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_close",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  0.9064257775606399
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5455134510993958,
+                2.034268856048584,
+                -1.406488060951233,
+                0.0020285106729716063,
+                0.8569047451019287,
+                0.8866539001464844
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  1.0864257775606398
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5726616978645325,
+                2.007737874984741,
+                -1.7842272520065308,
+                -3.8949583540670574e-05,
+                1.2199996709823608,
+                0.8765260577201843
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_box_object_lift",
+              "pose_w": {
+                "position": [
+                  1.0679909350849406,
+                  0.2168757710715769,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.5724400281906128,
+                2.093271255493164,
+                -2.618093252182007,
+                -0.0013328964123502374,
+                1.2200053930282593,
+                0.8767774105072021
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_transport",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6513288617134094,
+                2.2699503898620605,
+                -2.748769760131836,
+                -0.0022806324996054173,
+                1.220007061958313,
+                2.094390392303467
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_place",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.667971670627594,
+                2.4710662364959717,
+                -2.2364678382873535,
+                0.00967129971832037,
+                1.2200344800949097,
+                2.094392776489258
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_open",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6637237071990967,
+                2.4821174144744873,
+                -2.2297091484069824,
+                0.005011358764022589,
+                1.2200164794921875,
+                2.0943984985351562
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_box_object_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.01,
+                  -0.3,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.0,
+                  0.7479689261554194,
+                  -0.6637337459447943,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.6512846350669861,
+                2.264491319656372,
+                -2.7491514682769775,
+                -0.0037863715551793575,
+                1.21999990940094,
+                2.094399929046631
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.9179536700248718,
+                0.907872200012207,
+                -1.5807394981384277,
+                0.35646626353263855,
+                1.220000147819519,
+                -0.5121924877166748
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 1,
+          "ok": true,
+          "reference_center_w": [
+            1.0412896793286377,
+            0.05933596509031337,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            1.0072247065681388,
+            0.059877256068376815,
+            0.8571627642409935
+          ],
+          "ee_center_w": [
+            1.0412896793286377,
+            0.05933596509031337,
+            0.8590310184302934
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.0003070223901886493,
+                0.9245244860649109,
+                -1.514802098274231,
+                -0.00038213288644328713,
+                1.2200000286102295,
+                -0.0006312932819128036
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.100331235820988,
+                  0.051268084554579596,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17285120487213135,
+                1.4803003072738647,
+                -1.573255181312561,
+                0.021445870399475098,
+                1.1347306966781616,
+                -0.31032463908195496
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.100331235820988,
+                  0.051268084554579596,
+                  0.9708582569710945
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17292344570159912,
+                1.7130913734436035,
+                -0.7498456835746765,
+                0.24370746314525604,
+                0.08081261813640594,
+                -0.5442651510238647
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_grasp",
+              "pose_w": {
+                "position": [
+                  1.0316149172727298,
+                  0.060899074306786594,
+                  0.872953652372704
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.1764659583568573,
+                2.035680055618286,
+                -1.015307068824768,
+                -0.5298560261726379,
+                -0.1484001874923706,
+                0.44555649161338806
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_close",
+              "pose_w": {
+                "position": [
+                  1.0316149172727298,
+                  0.060899074306786594,
+                  0.872953652372704
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17624527215957642,
+                2.034351110458374,
+                -1.0170414447784424,
+                -0.5605306625366211,
+                -0.14719296991825104,
+                0.45879867672920227
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.1346893950951171,
+                  0.046452589678476104,
+                  1.0198105592702897
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.1781526356935501,
+                1.4771522283554077,
+                -0.7112393975257874,
+                0.0824456512928009,
+                0.2767515778541565,
+                -0.3849206864833832
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_lift",
+              "pose_w": {
+                "position": [
+                  1.1346893950951171,
+                  0.046452589678476104,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17813313007354736,
+                1.3591121435165405,
+                -1.4542014598846436,
+                0.02478593960404396,
+                1.1370114088058472,
+                -0.3159995675086975
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_transport",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8062653541564941,
+                2.083664655685425,
+                -2.4537875652313232,
+                -0.48893851041793823,
+                1.2200000286102295,
+                0.5425146818161011
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_place",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7900874018669128,
+                2.0615603923797607,
+                -1.3991456031799316,
+                -0.7893226742744446,
+                0.7241131067276001,
+                1.1970230340957642
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_open",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7995173335075378,
+                2.0689821243286133,
+                -1.4117425680160522,
+                -0.7745369672775269,
+                0.7080003023147583,
+                1.1917527914047241
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06222624690280199,
+                  0.9506996661896789,
+                  0.06407803651045309,
+                  -0.2969714534095651
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.8062586188316345,
+                2.0836100578308105,
+                -2.453561305999756,
+                -0.48888805508613586,
+                1.2200000286102295,
+                0.542595386505127
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.005187090486288071,
+                0.9245203733444214,
+                -1.514182209968567,
+                0.006224034354090691,
+                1.21999990940094,
+                0.010204611346125603
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            }
+          ]
+        },
+        {
+          "object": "banana",
+          "attempt": 2,
+          "ok": true,
+          "reference_center_w": [
+            1.1687149431766461,
+            0.047193356969023256,
+            0.8766426479059952
+          ],
+          "video_center_w": [
+            1.1399222543416376,
+            0.04888976096944128,
+            0.8563092227976523
+          ],
+          "ee_center_w": [
+            1.1687149431766461,
+            0.047193356969023256,
+            0.8576245722652429
+          ],
+          "waypoints": [
+            {
+              "name": "00_initial_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.00020193227101117373,
+                0.9245254397392273,
+                -1.514952301979065,
+                -0.0002813451283145696,
+                1.2200000286102295,
+                -0.0004477488109841943
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp_stage",
+              "pose_w": {
+                "position": [
+                  1.1527502115146355,
+                  0.039747457827419314,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 140,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.09315796196460724,
+                1.585911512374878,
+                -1.9094010591506958,
+                -0.14317212998867035,
+                1.2200000286102295,
+                0.12018314003944397
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_pregrasp",
+              "pose_w": {
+                "position": [
+                  1.1527502115146355,
+                  0.039747457827419314,
+                  0.9595016361831556
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.10634688287973404,
+                1.7036641836166382,
+                -0.7989462018013,
+                -0.16486188769340515,
+                0.7937395572662354,
+                0.2967013716697693
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_grasp",
+              "pose_w": {
+                "position": [
+                  1.1627972309214079,
+                  0.05406482356262873,
+                  0.8407831858923766
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17735914885997772,
+                1.5829819440841675,
+                -0.6153033375740051,
+                -0.06754248589277267,
+                0.4624255299568176,
+                -0.1574934720993042
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_close",
+              "pose_w": {
+                "position": [
+                  1.1627972309214079,
+                  0.05406482356262873,
+                  0.8407831858923766
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 55,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.17786753177642822,
+                1.5825759172439575,
+                -0.6155211925506592,
+                -0.06608162820339203,
+                0.4634036421775818,
+                -0.16091348230838776
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_approach_lift",
+              "pose_w": {
+                "position": [
+                  1.1477267018112494,
+                  0.032588774959814604,
+                  1.0188608613285453
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.08210767060518265,
+                1.5949945449829102,
+                -0.9109002947807312,
+                -0.14475223422050476,
+                1.0549033880233765,
+                0.266461044549942
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+            },
+            {
+              "name": "01_banana_lift",
+              "pose_w": {
+                "position": [
+                  1.1477267018112494,
+                  0.032588774959814604,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 120,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                -0.06406523287296295,
+                1.6046371459960938,
+                -1.9251673221588135,
+                -0.14202910661697388,
+                1.2199996709823608,
+                0.14633753895759583
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_transport",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 210,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7101114392280579,
+                2.143246650695801,
+                -2.6838884353637695,
+                -0.053712278604507446,
+                1.2200051546096802,
+                0.9481194615364075
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_place",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                -0.015,
+                0.015
+              ],
+              "steps": 100,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": [
+                0.7026901245117188,
+                2.0839996337890625,
+                -1.9258131980895996,
+                -0.04056204482913017,
+                1.2200019359588623,
+                0.988371729850769
+              ],
+              "result_target_arm_joint_pos": null,
+              "execution_mode": "cartesian_pose_controller"
+            },
+            {
+              "name": "01_banana_open",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  0.9766426479059952
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 70,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            },
+            {
+              "name": "01_banana_lift_retract",
+              "pose_w": {
+                "position": [
+                  1.08,
+                  -0.27,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  -0.06500594920810132,
+                  0.9879072461898827,
+                  -0.13674605200447454,
+                  0.03337688952352801
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            },
+            {
+              "name": "99_final_retract",
+              "pose_w": {
+                "position": [
+                  1.3542539025628455,
+                  0.0,
+                  1.226642647905995
+                ],
+                "quat_wxyz": [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              },
+              "gripper_joint_pos": [
+                0.035,
+                -0.035
+              ],
+              "steps": 90,
+              "has_curobo_joint_position": false,
+              "curobo_joint_position": null,
+              "result_actual_arm_joint_pos": null,
+              "result_target_arm_joint_pos": null,
+              "execution_mode": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

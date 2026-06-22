@@ -1,0 +1,93 @@
+robot_cfg:
+  kinematics:
+    format_version: 2.0
+    urdf_path: piper_arm.urdf
+    base_link: arm_base
+    tool_frames:
+      - gripper_base
+    collision_link_names:
+      - arm_link1
+      - arm_link2
+      - arm_link3
+      - arm_link4
+      - arm_link5
+      - arm_link6
+      - gripper_base
+    collision_spheres:
+      arm_link1:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.045
+      arm_link2:
+        - "center": [0.06, 0.0, 0.0]
+          "radius": 0.035
+        - "center": [0.14, 0.0, 0.0]
+          "radius": 0.035
+        - "center": [0.23, 0.0, 0.0]
+          "radius": 0.035
+      arm_link3:
+        - "center": [-0.02, -0.06, 0.0]
+          "radius": 0.035
+        - "center": [-0.02, -0.14, 0.0]
+          "radius": 0.035
+        - "center": [-0.02, -0.22, 0.0]
+          "radius": 0.035
+      arm_link4:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.035
+      arm_link5:
+        - "center": [0.0, -0.035, 0.0]
+          "radius": 0.032
+        - "center": [0.0, -0.075, 0.0]
+          "radius": 0.032
+      arm_link6:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.032
+      gripper_base:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.038
+        - "center": [0.0, 0.0, 0.045]
+          "radius": 0.032
+    collision_sphere_buffer: 0.0
+    cspace:
+      joint_names:
+        - joint1
+        - joint2
+        - joint3
+        - joint4
+        - joint5
+        - joint6
+      default_joint_position:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+      null_space_weight:
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+      cspace_distance_weight:
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+      max_acceleration: 20.0
+      max_jerk: 500.0
+    mesh_link_names:
+      - arm_base
+      - arm_link1
+      - arm_link2
+      - arm_link3
+      - arm_link4
+      - arm_link5
+      - arm_link6
+      - gripper_base
+    self_collision_buffer: {}
+    self_collision_ignore: {}
+    use_global_cumul: true

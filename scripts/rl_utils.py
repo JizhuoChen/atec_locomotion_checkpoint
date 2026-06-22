@@ -1,5 +1,6 @@
 import torch
 import isaaclab.utils.math as math_utils
+import os
 
 def camera_follow(env, robot_name: str = "robot", env_index: int = 0, alpha: float = 0.15):
     unwrapped = env.unwrapped
@@ -19,7 +20,14 @@ def camera_follow(env, robot_name: str = "robot", env_index: int = 0, alpha: flo
     robot_pos = robot.data.root_pos_w[env_index]
     robot_quat = robot.data.root_quat_w[env_index]
 
-    camera_offset = torch.tensor([-6.0, 0.0, 0.8], dtype=torch.float32, device=device)
+    offset_text = os.environ.get("ATEC_CAMERA_OFFSET", "").strip()
+    if offset_text:
+        offset = [float(part.strip()) for part in offset_text.split(",")]
+        if len(offset) != 3:
+            raise ValueError("ATEC_CAMERA_OFFSET must contain three comma-separated floats.")
+        camera_offset = torch.tensor(offset, dtype=torch.float32, device=device)
+    else:
+        camera_offset = torch.tensor([-6.0, 0.0, 0.8], dtype=torch.float32, device=device)
 
     target_camera_pos = math_utils.transform_points(
         camera_offset.unsqueeze(0),

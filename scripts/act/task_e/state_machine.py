@@ -7,7 +7,7 @@ from .config import (
     STEPS, STATE_ORDER,
     CARRY_Z, PLACE_HEIGHT,
     RETRACT_POS_X, RETRACT_POS_Y,
-    GRASP_Z_OFFSET,
+    GRASP_XY_OFFSETS, GRASP_Z_OFFSET, GRASP_Z_OFFSETS,
     BASKET_CENTER_X, BASKET_CENTER_Y,
     DEFAULT_PLACE_QUAT_W,
 )
@@ -125,7 +125,7 @@ class PickPlaceStateMachine:
         # Freeze object position at start of PRE_GRASP to avoid drift during descent
         if s == "PRE_GRASP" and self._count == 0:
             self._cached_obj_pos = obj_pos.clone()
-        if s in ("REACH", "CLOSE") and self._cached_obj_pos is not None:
+        if s in ("REACH", "CLOSE", "LIFT") and self._cached_obj_pos is not None:
             obj_pos = self._cached_obj_pos
 
         ee_pos, gripper = self._get_target_pos_gripper(s, obj_pos, d)
@@ -158,6 +158,10 @@ class PickPlaceStateMachine:
     def current_object_key(self) -> str:
         return f"object_{self._obj_indices[self._ptr]}"
 
+    @property
+    def current_object_idx(self) -> int:
+        return self._obj_indices[min(self._ptr, len(self._obj_indices) - 1)]
+
     # ------------------------------------------------------------------ #
     # Private helpers
     # ------------------------------------------------------------------ #
@@ -168,16 +172,16 @@ class PickPlaceStateMachine:
         if s == "INIT":
             return torch.tensor([RETRACT_POS_X, RETRACT_POS_Y, CARRY_Z], device=d), "open"
         elif s == "PRE_GRASP":
-            p = obj_pos.clone(); p[2] = CARRY_Z
+            p = self._grasp_target_pos(obj_pos); p[2] = CARRY_Z
             return p, "open"
         elif s == "REACH":
-            p = obj_pos.clone(); p[2] += GRASP_Z_OFFSET
+            p = self._grasp_target_pos(obj_pos); p[2] += self._grasp_z_offset()
             return p, "open"
         elif s == "CLOSE":
-            p = obj_pos.clone(); p[2] += GRASP_Z_OFFSET
+            p = self._grasp_target_pos(obj_pos); p[2] += self._grasp_z_offset()
             return p, "close"
         elif s == "LIFT":
-            p = obj_pos.clone(); p[2] = CARRY_Z
+            p = self._grasp_target_pos(obj_pos); p[2] = CARRY_Z
             return p, "close"
         elif s == "TRANSPORT":
             return torch.tensor([BASKET_CENTER_X, BASKET_CENTER_Y, CARRY_Z], device=d), "close"
@@ -194,7 +198,16 @@ class PickPlaceStateMachine:
 
     def _get_target_quat(self, s: str, d: str) -> torch.Tensor:
         default_quat = torch.tensor(DEFAULT_PLACE_QUAT_W, dtype=torch.float32, device=d)
-        if s in ("REACH", "CLOSE", "LIFT"):
-            cur_idx = self._obj_indices[min(self._ptr, len(self._obj_indices) - 1)]
-            return self._grasp_quat_cache.get(cur_idx, default_quat)
+        if s in ("PRE_GRASP", "REACH", "CLOSE", "LIFT"):
+            return self._grasp_quat_cache.get(self.current_object_idx, default_quat)
         return default_quat
+
+    def _grasp_z_offset(self) -> float:
+        return GRASP_Z_OFFSETS.get(self.current_object_idx, GRASP_Z_OFFSET)
+
+    def _grasp_target_pos(self, obj_pos: torch.Tensor) -> torch.Tensor:
+        p = obj_pos.clone()
+        dx, dy = GRASP_XY_OFFSETS.get(self.current_object_idx, (0.0, 0.0))
+        p[0] += dx
+        p[1] += dy
+        return p

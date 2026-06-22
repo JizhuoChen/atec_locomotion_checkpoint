@@ -181,7 +181,26 @@ def module_status(name: str) -> str:
     return f"available:{spec.origin}"
 
 
+def piper_moveit_config_candidates() -> list[str]:
+    candidates = []
+    search_roots = (
+        REPO_ROOT / "source",
+        REPO_ROOT / "config",
+        REPO_ROOT / "third_party/moveit2_ws/install/share",
+        Path("/opt/ros/jazzy/share"),
+    )
+    for base in search_roots:
+        if not base.exists():
+            continue
+        for path in base.rglob("*moveit_config*"):
+            name = path.name.lower()
+            if "piper" in name and path.is_dir():
+                candidates.append(str(path.resolve()))
+    return sorted(set(candidates))
+
+
 def backend_status(request: dict, backend_arg: str, no_fallback: bool) -> dict:
+    moveit2_workspace = REPO_ROOT / "third_party/moveit2_ws/install"
     modules = {
         "moveit": module_status("moveit"),
         "moveit_py": module_status("moveit_py"),
@@ -209,7 +228,9 @@ def backend_status(request: dict, backend_arg: str, no_fallback: bool) -> dict:
         "reason": reason,
         "modules": modules,
         "moveit2_source": str((REPO_ROOT / "third_party/moveit2").resolve()),
-        "moveit2_workspace": str((REPO_ROOT / "third_party/moveit2_ws/install").resolve()),
+        "moveit2_workspace": str(moveit2_workspace.resolve()),
+        "moveit2_workspace_exists": moveit2_workspace.exists(),
+        "piper_moveit_config_candidates": piper_moveit_config_candidates(),
     }
 
 
@@ -458,6 +479,10 @@ def tensor_list(value) -> list[float]:
     return value.detach().cpu().numpy().astype(float).tolist()
 
 
+def tensor_to_list(value) -> list[float]:
+    return tensor_list(value)
+
+
 def quat_abs_dot(a: list[float], b: list[float]) -> float:
     qa = np.asarray(a, dtype=np.float64)
     qb = np.asarray(b, dtype=np.float64)
@@ -483,6 +508,13 @@ def execute_waypoint_isaaclab(
     pose = waypoint["pose_w"]
     position = pose["position"]
     quat = pose["quat_wxyz"]
+    held_current_pose = False
+    if waypoint.get("hold_current_pose"):
+        ee_pose_start = robot.data.body_pose_w[0, controller.ee_idx]
+        position = tensor_to_list(ee_pose_start[:3])
+        quat = tensor_to_list(ee_pose_start[3:])
+        pose = {"position": position, "quat_wxyz": quat}
+        held_current_pose = True
     gripper = waypoint["gripper_joint_pos"]
     steps = int(waypoint.get("steps", 1))
     object_transport = waypoint.get("object_transport") if object_transport_mode == "kinematic_attach" else None
@@ -548,6 +580,7 @@ def execute_waypoint_isaaclab(
         "name": waypoint["name"],
         "ok": stopped is None or bool(stopped.get("terminated", False)),
         "target_pose_w": pose,
+        "held_current_pose": held_current_pose,
         "target_gripper_joint_pos": gripper,
         "steps_requested": steps,
         "reward_sum": reward_sum,

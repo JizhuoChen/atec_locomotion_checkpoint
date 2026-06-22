@@ -1,0 +1,71 @@
+{
+  "baseline_name": "task_e_cartesian_curobo_baseline_20260620",
+  "created_date": "2026-06-20",
+  "source_script": "scripts/task_e_full_anygrasp_ee_pipeline.py",
+  "strategy": {
+    "object_order": ["mustard_bottle", "box_object", "banana"],
+    "mustard_bottle": "symmetric_bottle heuristic + CuRobo joint execution",
+    "box_object": "box_top_center_arm_side heuristic + CuRobo-selected pose executed by CartesianController",
+    "banana": "AnyGrasp + CuRobo-selected pose executed by CartesianController, up to 10 attempts"
+  },
+  "validated_runs": [
+    {
+      "seed": 120,
+      "output_dir": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana",
+      "video": "outputs/task_e_seed120_bottle_box_banana_cartesian_box_banana/execution/video_cam.mp4",
+      "objects": [
+        {
+          "name": "mustard_bottle",
+          "attempt": 1,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.04887928114375199,
+          "execution_mode": "curobo_joint_position_baseline_interp"
+        },
+        {
+          "name": "box_object",
+          "attempt": 1,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.07900212878880934,
+          "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+        },
+        {
+          "name": "banana",
+          "attempt": 3,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.08593156176739124,
+          "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+        }
+      ]
+    },
+    {
+      "seed": 130,
+      "output_dir": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana",
+      "video": "outputs/task_e_seed130_bottle_box_banana_cartesian_box_banana/execution/video_cam.mp4",
+      "objects": [
+        {
+          "name": "mustard_bottle",
+          "attempt": 1,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.05593385827675441,
+          "execution_mode": "curobo_joint_position_baseline_interp"
+        },
+        {
+          "name": "box_object",
+          "attempt": 1,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.07870052973495863,
+          "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+        },
+        {
+          "name": "banana",
+          "attempt": 2,
+          "target_in_basket": true,
+          "grasp_position_error_m": 0.12333287282766751,
+          "execution_mode": "cartesian_pose_controller_from_curobo_selected_pose"
+        }
+      ]
+    }
+  ],
+  "known_issue": "The final contact/grasp waypoint can still miss by several centimeters under both CuRobo joint execution and CartesianController execution. Success comes from the current grasp/transport robustness, not from exact contact-pose tracking."
+}
+
