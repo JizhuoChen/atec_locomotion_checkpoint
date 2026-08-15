@@ -1,5 +1,9 @@
 # B2-Piper locomotion training
 
+For the optional privileged-teacher PPO and 45-input student-distillation
+extension of the canonical policy, see
+[`b2_piper_teacher_student_training.md`](b2_piper_teacher_student_training.md).
+
 Run these commands from the repository root in the Isaac Lab environment. The implemented workflow first adapts a bare-B2 gait to the mounted Piper arm on a plane, then transfers that actor to the heading-first official rough terrains.
 
 ## Tasks and policy contract

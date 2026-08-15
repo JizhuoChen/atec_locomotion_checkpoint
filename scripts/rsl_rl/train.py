@@ -36,6 +36,27 @@ parser.add_argument(
     help="Path to an RSL-RL model_N.pt checkpoint whose actor weights initialize a new training run.",
 )
 parser.add_argument(
+    "--pretrained_privileged_teacher",
+    type=str,
+    default=None,
+    help=(
+        "Path to the canonical 45-actor/251-critic checkpoint used to initialize an expanded "
+        "privileged teacher. Shared input columns are copied and appended columns are zeroed."
+    ),
+)
+parser.add_argument(
+    "--teacher_checkpoint",
+    type=str,
+    default=None,
+    help="Explicit privileged PPO teacher checkpoint to load for a DistillationRunner.",
+)
+parser.add_argument(
+    "--pretrained_student",
+    type=str,
+    default=None,
+    help="PPO checkpoint whose actor initializes the 45-input student before distillation.",
+)
+parser.add_argument(
     "--spawn_audit",
     action="store_true",
     default=False,
@@ -248,6 +269,194 @@ def load_pretrained_actor(runner: OnPolicyRunner, checkpoint_path: str) -> dict[
     return {"checkpoint": checkpoint_path, "source_iteration": source_iteration}
 
 
+def _load_checkpoint_model_state(checkpoint_path: str) -> tuple[str, dict[str, torch.Tensor], int]:
+    """Load and validate an RSL-RL training checkpoint's model state."""
+    resolved_path = os.path.abspath(os.path.expanduser(checkpoint_path))
+    if not os.path.isfile(resolved_path):
+        raise FileNotFoundError(f"Training checkpoint does not exist: {resolved_path}")
+    checkpoint = torch.load(resolved_path, map_location="cpu", weights_only=True)
+    if not isinstance(checkpoint, dict) or not isinstance(checkpoint.get("model_state_dict"), dict):
+        raise ValueError(
+            "Expected an RSL-RL model_N.pt checkpoint containing 'model_state_dict', "
+            f"not an exported policy: {resolved_path}"
+        )
+    return resolved_path, checkpoint["model_state_dict"], int(checkpoint.get("iter", -1))
+
+
+def _expanded_mlp_state(
+    target: torch.nn.Module,
+    source_state: dict[str, torch.Tensor],
+    *,
+    network_name: str,
+) -> tuple[dict[str, torch.Tensor], dict[str, object]]:
+    """Copy an MLP while zero-initializing appended first-layer input columns."""
+    target_state = target.state_dict()
+    if set(target_state) != set(source_state):
+        raise ValueError(
+            f"{network_name} layer keys differ. Source={sorted(source_state)}, "
+            f"target={sorted(target_state)}."
+        )
+
+    result: dict[str, torch.Tensor] = {}
+    expanded_key: str | None = None
+    source_input_dim: int | None = None
+    target_input_dim: int | None = None
+    for name, target_value in target_state.items():
+        source_value = source_state[name]
+        if source_value.shape == target_value.shape:
+            result[name] = source_value
+            continue
+        if (
+            name == "0.weight"
+            and source_value.ndim == 2
+            and target_value.ndim == 2
+            and source_value.shape[0] == target_value.shape[0]
+            and source_value.shape[1] < target_value.shape[1]
+        ):
+            expanded = torch.zeros(target_value.shape, dtype=source_value.dtype, device=source_value.device)
+            expanded[:, : source_value.shape[1]] = source_value
+            result[name] = expanded
+            expanded_key = name
+            source_input_dim = int(source_value.shape[1])
+            target_input_dim = int(target_value.shape[1])
+            continue
+        raise ValueError(
+            f"Cannot expand {network_name} tensor {name}: source={tuple(source_value.shape)}, "
+            f"target={tuple(target_value.shape)}. Only appended columns in 0.weight are supported."
+        )
+
+    if expanded_key is None or source_input_dim is None or target_input_dim is None:
+        raise ValueError(f"{network_name} did not require the expected first-layer input expansion.")
+    return result, {
+        "source_input_dim": source_input_dim,
+        "target_input_dim": target_input_dim,
+        "zero_initialized_input_columns": target_input_dim - source_input_dim,
+    }
+
+
+def load_expanded_privileged_teacher(
+    runner: OnPolicyRunner, checkpoint_path: str
+) -> dict[str, object]:
+    """Warm-start a 76-input actor and 263-input critic from the canonical checkpoint."""
+    expected_obs_groups = {
+        "policy": ["policy", "teacher_privileged", "contact_forces"],
+        "critic": ["critic", "contact_forces"],
+    }
+    resolved_obs_groups = getattr(runner, "cfg", {}).get("obs_groups")
+    if resolved_obs_groups != expected_obs_groups:
+        raise ValueError(
+            "Expanded teacher initialization requires the prefix-preserving observation mapping "
+            f"{expected_obs_groups}, got {resolved_obs_groups}."
+        )
+
+    resolved_path, source_state, source_iteration = _load_checkpoint_model_state(checkpoint_path)
+    policy = runner.alg.policy
+    actor = getattr(policy, "actor", None)
+    critic = getattr(policy, "critic", None)
+    if actor is None or critic is None:
+        raise ValueError("Expanded teacher initialization requires ActorCritic actor and critic modules.")
+
+    source_actor = {
+        name.removeprefix("actor."): value
+        for name, value in source_state.items()
+        if name.startswith("actor.")
+    }
+    source_critic = {
+        name.removeprefix("critic."): value
+        for name, value in source_state.items()
+        if name.startswith("critic.")
+    }
+    actor_state, actor_metadata = _expanded_mlp_state(
+        actor, source_actor, network_name="privileged teacher actor"
+    )
+    critic_state, critic_metadata = _expanded_mlp_state(
+        critic, source_critic, network_name="privileged teacher critic"
+    )
+    if actor_metadata != {
+        "source_input_dim": 45,
+        "target_input_dim": 76,
+        "zero_initialized_input_columns": 31,
+    }:
+        raise ValueError(f"Unexpected privileged teacher actor expansion: {actor_metadata}")
+    if critic_metadata != {
+        "source_input_dim": 251,
+        "target_input_dim": 263,
+        "zero_initialized_input_columns": 12,
+    }:
+        raise ValueError(f"Unexpected privileged teacher critic expansion: {critic_metadata}")
+
+    actor.load_state_dict(actor_state, strict=True)
+    critic.load_state_dict(critic_state, strict=True)
+
+    std_copied = False
+    if hasattr(policy, "std") and "std" in source_state:
+        if policy.std.shape != source_state["std"].shape:
+            raise ValueError(
+                f"Action standard deviation shape mismatch: source={tuple(source_state['std'].shape)}, "
+                f"target={tuple(policy.std.shape)}."
+            )
+        with torch.no_grad():
+            policy.std.copy_(source_state["std"].to(device=policy.std.device, dtype=policy.std.dtype))
+        std_copied = True
+
+    metadata = {
+        "checkpoint": resolved_path,
+        "checkpoint_sha256": _sha256_file(resolved_path),
+        "source_iteration": source_iteration,
+        "actor": actor_metadata,
+        "critic": critic_metadata,
+        "action_std_copied": std_copied,
+        "optimizer": "fresh",
+        "iteration_counter": "fresh",
+    }
+    print(
+        "[INFO]: Initialized privileged teacher from canonical PPO checkpoint. "
+        f"Actor {actor_metadata['source_input_dim']}->{actor_metadata['target_input_dim']} "
+        f"and critic {critic_metadata['source_input_dim']}->{critic_metadata['target_input_dim']}; "
+        "all appended input columns are exactly zero."
+    )
+    return metadata
+
+
+def load_pretrained_student(runner: DistillationRunner, checkpoint_path: str) -> dict[str, object]:
+    """Initialize the distillation student's unchanged MLP from a PPO actor."""
+    resolved_path, source_state, source_iteration = _load_checkpoint_model_state(checkpoint_path)
+    student = getattr(runner.alg.policy, "student", None)
+    if student is None:
+        raise ValueError("Pretrained student initialization requires a StudentTeacher policy.")
+    source_actor = {
+        name.removeprefix("actor."): value
+        for name, value in source_state.items()
+        if name.startswith("actor.")
+    }
+    target_state = student.state_dict()
+    missing = sorted(set(target_state) - set(source_actor))
+    unexpected = sorted(set(source_actor) - set(target_state))
+    mismatched = sorted(
+        name
+        for name in set(target_state) & set(source_actor)
+        if target_state[name].shape != source_actor[name].shape
+    )
+    if missing or unexpected or mismatched:
+        raise ValueError(
+            "PPO actor is incompatible with the distillation student. "
+            f"Missing={missing}; unexpected={unexpected}; shape_mismatches={mismatched}."
+        )
+    student.load_state_dict(source_actor, strict=True)
+    print(
+        f"[INFO]: Initialized the 45-input distillation student from: {resolved_path} "
+        f"(iteration {source_iteration})."
+    )
+    return {
+        "checkpoint": resolved_path,
+        "checkpoint_sha256": _sha256_file(resolved_path),
+        "source_iteration": source_iteration,
+        "student_input_dim": 45,
+        "student_output_dim": 12,
+        "optimizer": "fresh",
+    }
+
+
 @torch.inference_mode()
 def audit_terrain_spawns(env: RslRlVecEnvWrapper) -> dict[str, float | int | bool | None]:
     """Fail fast if a reset root or foot lies outside its assigned terrain tile."""
@@ -362,6 +571,28 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         raise ValueError("--pretrained_actor and --resume are mutually exclusive.")
     if args_cli.pretrained_actor is not None and agent_cfg.class_name != "OnPolicyRunner":
         raise ValueError("--pretrained_actor currently supports only the RSL-RL OnPolicyRunner.")
+    if args_cli.pretrained_privileged_teacher is not None and agent_cfg.class_name != "OnPolicyRunner":
+        raise ValueError("--pretrained_privileged_teacher requires the RSL-RL OnPolicyRunner.")
+    if args_cli.pretrained_privileged_teacher is not None and (
+        agent_cfg.resume or args_cli.pretrained_actor is not None
+    ):
+        raise ValueError(
+            "--pretrained_privileged_teacher is mutually exclusive with --resume and --pretrained_actor."
+        )
+    is_distillation = agent_cfg.class_name == "DistillationRunner"
+    if args_cli.teacher_checkpoint is not None and not is_distillation:
+        raise ValueError("--teacher_checkpoint is only valid for a DistillationRunner.")
+    if args_cli.teacher_checkpoint is not None and args_cli.checkpoint is not None:
+        raise ValueError("--teacher_checkpoint and --checkpoint are mutually exclusive.")
+    if args_cli.pretrained_student is not None and not is_distillation:
+        raise ValueError("--pretrained_student is only valid for a DistillationRunner.")
+    if args_cli.pretrained_student is not None and agent_cfg.resume:
+        raise ValueError("--pretrained_student cannot be combined with --resume.")
+    if is_distillation and args_cli.teacher_checkpoint is None and args_cli.checkpoint is None:
+        logger.warning(
+            "No explicit --teacher_checkpoint was supplied; the teacher will be selected from "
+            "the distillation experiment's load_run/load_checkpoint patterns."
+        )
     if args_cli.video_terrain_cycle and not args_cli.video:
         raise ValueError("--video_terrain_cycle requires --video.")
 
@@ -440,8 +671,15 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         terrain_camera_metadata = None
 
     # save resume path before creating a new log_dir
-    if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
+    if agent_cfg.resume:
         resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
+    elif is_distillation:
+        if args_cli.teacher_checkpoint is not None:
+            resume_path = os.path.abspath(os.path.expanduser(args_cli.teacher_checkpoint))
+            if not os.path.isfile(resume_path):
+                raise FileNotFoundError(f"Teacher checkpoint does not exist: {resume_path}")
+        else:
+            resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
 
     # wrap for video recording
     if args_cli.video:
@@ -472,7 +710,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # write git state to logs
     runner.add_git_repo_to_log(__file__)
     # load the checkpoint
-    if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
+    privileged_teacher_metadata = None
+    pretrained_student_metadata = None
+    if agent_cfg.resume or is_distillation:
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
         # load previously trained model
         runner.load(resume_path)
@@ -484,6 +724,14 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             if agent_cfg.resume and agent_cfg.class_name == "OnPolicyRunner"
             else None
         )
+        if is_distillation and args_cli.pretrained_student is not None:
+            pretrained_student_metadata = load_pretrained_student(runner, args_cli.pretrained_student)
+    elif args_cli.pretrained_privileged_teacher is not None:
+        privileged_teacher_metadata = load_expanded_privileged_teacher(
+            runner, args_cli.pretrained_privileged_teacher
+        )
+        pretrained_actor_metadata = None
+        resume_metadata = None
     elif args_cli.pretrained_actor is not None:
         pretrained_actor_metadata = load_pretrained_actor(runner, args_cli.pretrained_actor)
         resume_metadata = None
@@ -496,6 +744,16 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
     if pretrained_actor_metadata is not None:
         dump_yaml(os.path.join(log_dir, "params", "pretrained_actor.yaml"), pretrained_actor_metadata)
+    if privileged_teacher_metadata is not None:
+        dump_yaml(
+            os.path.join(log_dir, "params", "privileged_teacher_initialization.yaml"),
+            privileged_teacher_metadata,
+        )
+    if pretrained_student_metadata is not None:
+        dump_yaml(
+            os.path.join(log_dir, "params", "pretrained_student.yaml"),
+            pretrained_student_metadata,
+        )
     if resume_metadata is not None:
         dump_yaml(os.path.join(log_dir, "params", "resume.yaml"), resume_metadata)
     if spawn_audit_metadata is not None:
