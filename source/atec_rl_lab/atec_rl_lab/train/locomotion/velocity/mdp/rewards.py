@@ -77,6 +77,50 @@ def track_ang_vel_z_world_exp(
     return reward
 
 
+def track_heading_aligned_forward_exp(
+    env: ManagerBasedRLEnv, std: float, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Reward yaw-frame forward tracking only after the robot aligns to its target heading.
+
+    The command term publishes a gated forward target. Multiplying the reward
+    by the same gate is essential: without it, standing still while badly
+    misaligned would receive the maximum zero-velocity tracking reward.
+    """
+    asset: RigidObject = env.scene[asset_cfg.name]
+    command_term = env.command_manager.get_term(command_name)
+    if not hasattr(command_term, "heading_alignment_gate"):
+        raise AttributeError(f"Command term '{command_name}' does not expose a heading_alignment_gate.")
+
+    vel_yaw = quat_apply_inverse(yaw_quat(asset.data.root_quat_w), asset.data.root_lin_vel_w[:, :3])
+    command = env.command_manager.get_command(command_name)
+    lin_vel_error = torch.square(command[:, 0] - vel_yaw[:, 0]) + torch.square(vel_yaw[:, 1])
+    reward = command_term.heading_alignment_gate * torch.exp(-lin_vel_error / std**2)
+    reward *= torch.clamp(-asset.data.projected_gravity_b[:, 2], 0, 0.7) / 0.7
+    return reward
+
+
+def lateral_velocity_yaw_frame_l2(
+    env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Penalize lateral velocity in the gravity-aligned robot yaw frame."""
+    asset: RigidObject = env.scene[asset_cfg.name]
+    vel_yaw = quat_apply_inverse(yaw_quat(asset.data.root_quat_w), asset.data.root_lin_vel_w[:, :3])
+    return torch.square(vel_yaw[:, 1])
+
+
+def misaligned_planar_motion_l2(
+    env: ManagerBasedRLEnv, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Penalize translating before the target world heading has been acquired."""
+    asset: RigidObject = env.scene[asset_cfg.name]
+    command_term = env.command_manager.get_term(command_name)
+    if not hasattr(command_term, "heading_alignment_gate"):
+        raise AttributeError(f"Command term '{command_name}' does not expose a heading_alignment_gate.")
+
+    vel_yaw = quat_apply_inverse(yaw_quat(asset.data.root_quat_w), asset.data.root_lin_vel_w[:, :3])
+    return (1.0 - command_term.heading_alignment_gate) * torch.sum(torch.square(vel_yaw[:, :2]), dim=1)
+
+
 def joint_power(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     """Reward joint_power"""
     # extract the used quantities (to enable type-hinting)

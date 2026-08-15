@@ -42,3 +42,54 @@ class UnitreeB2FlatPPORunnerCfg(UnitreeB2RoughPPORunnerCfg):
 
         self.max_iterations = 5000
         self.experiment_name = "unitree_b2_flat"
+
+
+@configclass
+class UnitreeB2HeadingRoughPPORunnerCfg(UnitreeB2RoughPPORunnerCfg):
+    """Conservative fine-tuning settings for the heading-first rough task."""
+
+    def __post_init__(self):
+        super().__post_init__()
+
+        self.max_iterations = 5000
+        self.experiment_name = "unitree_b2_heading_rough"
+        self.algorithm.learning_rate = 3.0e-4
+        self.algorithm.entropy_coef = 0.005
+
+
+@configclass
+class UnitreeB2PiperFlatPPORunnerCfg(UnitreeB2FlatPPORunnerCfg):
+    """Flat-ground embodiment adaptation for B2 with the mounted Piper arm."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "unitree_b2_piper_flat"
+
+
+@configclass
+class UnitreeB2PiperHeadingRoughPPORunnerCfg(UnitreeB2HeadingRoughPPORunnerCfg):
+    """Heading-first rough-terrain fine-tuning for B2 with Piper."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "unitree_b2_piper_heading_rough"
+
+
+@configclass
+class UnitreeB2PiperRobustFlatPPORunnerCfg(UnitreeB2PiperFlatPPORunnerCfg):
+    """Longer from-scratch adaptation for the robust B2-Piper profile."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.max_iterations = 8000
+        self.experiment_name = "unitree_b2_piper_robust_flat"
+
+
+@configclass
+class UnitreeB2PiperRobustHeadingRoughPPORunnerCfg(UnitreeB2PiperHeadingRoughPPORunnerCfg):
+    """Longer actor-transfer fine-tuning on the robust terrain profile."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.max_iterations = 12000
+        self.experiment_name = "unitree_b2_piper_robust_heading_rough"

@@ -1,0 +1,14 @@
+num_envs: 2048
+num_terrain_cells_used: 399
+max_envs_per_cell: 10
+initial_min_terrain_level: 0
+initial_max_terrain_level: 4
+min_same_cell_root_separation_m: 0.36149948835372925
+max_abs_root_offset_x_m: 2.7981271743774414
+max_abs_root_offset_y_m: 2.7986297607421875
+max_abs_foot_offset_x_m: 3.362934112548828
+max_abs_foot_offset_y_m: 3.3611907958984375
+root_outside_tile_count: 0
+robot_with_foot_outside_tile_count: 0
+duplicate_root_within_cell: false
+cross_environment_collision_filtering: true

@@ -2,6 +2,7 @@
 
 from isaaclab.utils import configclass
 
+import atec_rl_lab.train.locomotion.velocity.mdp as mdp
 from atec_rl_lab.train.locomotion.velocity.config.quadruped.unitree_b2.rough_env_cfg import UnitreeB2RoughEnvCfg
 
 
@@ -22,6 +23,20 @@ class UnitreeB2FlatEnvCfg(UnitreeB2RoughEnvCfg):
         self.observations.critic.height_scan = None
         # no terrain curriculum
         self.curriculum.terrain_levels = None
+        # Rough training uses generated flat patches for spread spawning. A
+        # plane has no patch sampler, so restore the standard flat reset.
+        self.events.randomize_reset_base.func = mdp.reset_root_state_uniform
+        self.events.randomize_reset_base.params = {
+            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+            "velocity_range": {
+                "x": (-0.5, 0.5),
+                "y": (-0.5, 0.5),
+                "z": (-0.5, 0.5),
+                "roll": (-0.5, 0.5),
+                "pitch": (-0.5, 0.5),
+                "yaw": (-0.5, 0.5),
+            },
+        }
 
         # If the weight of rewards is 0, set rewards to None
         if self.__class__.__name__ == "UnitreeB2FlatEnvCfg":

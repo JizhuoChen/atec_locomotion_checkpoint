@@ -3,6 +3,7 @@
 """Launch Isaac Sim Simulator first."""
 
 import argparse
+import re
 import sys
 
 from isaaclab.app import AppLauncher
@@ -14,6 +15,33 @@ import cli_args  # isort: skip
 parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
 parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
 parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
+parser.add_argument(
+    "--terrain_showcase",
+    action="store_true",
+    default=False,
+    help="Record one tracked-policy video for every configured rough-terrain family.",
+)
+parser.add_argument(
+    "--showcase_steps_per_terrain",
+    type=int,
+    default=1000,
+    help="Number of policy steps recorded for each terrain in --terrain_showcase mode.",
+)
+parser.add_argument(
+    "--showcase_difficulty",
+    type=float,
+    default=0.75,
+    help="Fixed normalized terrain difficulty in --terrain_showcase mode (0 to 1).",
+)
+parser.add_argument(
+    "--showcase_output_name",
+    type=str,
+    default=None,
+    help=(
+        "Relative output folder below videos/play for --terrain_showcase. "
+        "Safe slash-separated names are accepted; an automatic difficulty/seed name is used by default."
+    ),
+)
 parser.add_argument(
     "--disable_fabric", action="store_true", default=False, help="Disable fabric and use USD I/O operations."
 )
@@ -36,6 +64,8 @@ AppLauncher.add_app_launcher_args(parser)
 # parse the arguments
 args_cli, hydra_args = parser.parse_known_args()
 # always enable cameras to record video
+if args_cli.terrain_showcase:
+    args_cli.video = True
 if args_cli.video:
     args_cli.enable_cameras = True
 
@@ -65,6 +95,7 @@ from isaaclab.envs import (
 from isaaclab.managers import ObservationTermCfg as ObsTerm
 from isaaclab.utils.assets import retrieve_file_path
 from isaaclab.utils.dict import print_dict
+from isaaclab.utils.io import dump_yaml
 
 from isaaclab_rl.rsl_rl import RslRlBaseRunnerCfg, RslRlVecEnvWrapper, export_policy_as_jit, export_policy_as_onnx
 from isaaclab_rl.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
@@ -73,11 +104,49 @@ from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_tasks.utils.hydra import hydra_task_config
 
 import atec_rl_lab.train  # noqa: F401  # isort: skip
+from terrain_camera import (
+    TerrainFamilyCameraCycle,
+    terrain_family_representatives,
+    terrain_showcase_column_allocation,
+    terrain_video_manifest,
+)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 # PLACEHOLDER: Extension template (do not remove this comment)
+
+
+SHOWCASE_PATH_COMPONENT_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,95}")
+
+
+def resolve_showcase_output_dir(
+    play_video_dir: str, requested_name: str | None, difficulty: float, seed: int
+) -> tuple[str, str]:
+    """Return a safe, non-overwriting showcase directory and its relative name."""
+    if requested_name is None:
+        difficulty_tag = f"d{round(difficulty * 100):03d}"
+        requested_name = f"terrain-showcase-{difficulty_tag}-seed{seed}"
+    components = requested_name.split("/")
+    if not components or any(
+        SHOWCASE_PATH_COMPONENT_RE.fullmatch(component) is None for component in components
+    ):
+        raise ValueError(
+            "--showcase_output_name must contain only safe slash-separated components made of "
+            "letters, numbers, '.', '_', or '-' (no empty, '.' or '..' components)."
+        )
+    relative_name = os.path.join(*components)
+    output_dir = os.path.abspath(os.path.join(play_video_dir, relative_name))
+    if os.path.commonpath((os.path.abspath(play_video_dir), output_dir)) != os.path.abspath(
+        play_video_dir
+    ):
+        raise ValueError("--showcase_output_name must remain below the checkpoint's videos/play directory.")
+    if os.path.exists(output_dir):
+        raise FileExistsError(
+            f"Showcase output already exists and will not be overwritten: {output_dir}. "
+            "Choose a different --showcase_output_name."
+        )
+    return output_dir, relative_name
 
 
 @hydra_task_config(args_cli.task, args_cli.agent)
@@ -88,7 +157,29 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # override configurations with non-hydra CLI arguments
     agent_cfg: RslRlBaseRunnerCfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
-    env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else 64
+    if args_cli.terrain_showcase:
+        if not 0.0 <= args_cli.showcase_difficulty <= 1.0:
+            raise ValueError("--showcase_difficulty must be between 0 and 1.")
+        if args_cli.showcase_steps_per_terrain <= 0:
+            raise ValueError("--showcase_steps_per_terrain must be positive.")
+        showcase_generator_cfg = env_cfg.scene.terrain.terrain_generator
+        if env_cfg.scene.terrain.terrain_type != "generator" or showcase_generator_cfg is None:
+            raise ValueError("--terrain_showcase requires a generated rough-terrain task.")
+        showcase_column_allocation = terrain_showcase_column_allocation(
+            showcase_generator_cfg.sub_terrains
+        )
+        showcase_num_columns = sum(showcase_column_allocation.values())
+        # One environment per column guarantees that every configured family
+        # has a representative without adding duplicate rendered robots.
+        env_cfg.scene.num_envs = showcase_num_columns
+        print(
+            f"[INFO] Terrain showcase: {showcase_num_columns} columns/environments; allocation "
+            f"{showcase_column_allocation}."
+        )
+    else:
+        showcase_column_allocation = None
+        showcase_num_columns = None
+        env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else 64
 
     # set the environment seed
     # note: certain randomizations occur in the environment initialization so we set the seed here
@@ -96,18 +187,39 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
 
     # spawn the robot randomly in the grid (instead of their terrain levels)
-    env_cfg.scene.terrain.max_init_terrain_level = None
+    env_cfg.scene.terrain.max_init_terrain_level = 0 if args_cli.terrain_showcase else None
     # reduce the number of terrains to save memory
     if env_cfg.scene.terrain.terrain_generator is not None:
-        env_cfg.scene.terrain.terrain_generator.num_rows = 5
-        env_cfg.scene.terrain.terrain_generator.num_cols = 5
-        env_cfg.scene.terrain.terrain_generator.curriculum = False
+        if args_cli.terrain_showcase:
+            env_cfg.scene.terrain.terrain_generator.num_rows = 1
+            env_cfg.scene.terrain.terrain_generator.num_cols = showcase_num_columns
+            env_cfg.scene.terrain.terrain_generator.curriculum = True
+            env_cfg.scene.terrain.terrain_generator.difficulty_range = (
+                args_cli.showcase_difficulty,
+                args_cli.showcase_difficulty,
+            )
+        else:
+            env_cfg.scene.terrain.terrain_generator.num_rows = 5
+            env_cfg.scene.terrain.terrain_generator.num_cols = 5
+            env_cfg.scene.terrain.terrain_generator.curriculum = False
+        if env_cfg.scene.terrain.terrain_generator.seed is None:
+            env_cfg.scene.terrain.terrain_generator.seed = env_cfg.seed
+
+    if args_cli.terrain_showcase:
+        env_cfg.viewer.origin_type = "asset_root"
+        env_cfg.viewer.asset_name = "robot"
+        env_cfg.viewer.env_index = 0
+        env_cfg.viewer.eye = (3.5, 3.5, 2.4)
+        env_cfg.viewer.lookat = (0.0, 0.0, 0.3)
+        # A terrain-performance clip should exercise locomotion. The ordinary
+        # task keeps its 2% standing commands for hold-policy evaluation.
+        env_cfg.commands.base_velocity.rel_standing_envs = 0.0
 
     # disable randomization for play
     env_cfg.observations.policy.enable_corruption = False
     # remove random pushing
     env_cfg.events.randomize_apply_external_force_torque = None
-    env_cfg.events.push_robot = None
+    env_cfg.events.randomize_push_robot = None
     env_cfg.curriculum.command_levels_lin_vel = None
     env_cfg.curriculum.command_levels_ang_vel = None
 
@@ -137,17 +249,67 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     if isinstance(env.unwrapped, DirectMARLEnv):
         env = multi_agent_to_single_agent(env)
 
+    if args_cli.terrain_showcase:
+        terrain_camera_representatives = terrain_family_representatives(env)
+        env = TerrainFamilyCameraCycle(
+            env, args_cli.showcase_steps_per_terrain, terrain_camera_representatives
+        )
+        showcase_steps = args_cli.showcase_steps_per_terrain * len(terrain_camera_representatives)
+        showcase_name_prefix = "terrain-showcase"
+        showcase_metadata = terrain_video_manifest(
+            terrain_camera_representatives, args_cli.showcase_steps_per_terrain, showcase_name_prefix
+        )
+        showcase_play_dir = os.path.join(log_dir, "videos", "play")
+        showcase_video_dir, showcase_relative_name = resolve_showcase_output_dir(
+            showcase_play_dir,
+            args_cli.showcase_output_name,
+            args_cli.showcase_difficulty,
+            agent_cfg.seed,
+        )
+        policy_step_dt = float(env.unwrapped.step_dt)
+        showcase_metadata.update(
+            {
+                "schema_version": 2,
+                "output_name": showcase_relative_name,
+                "difficulty": args_cli.showcase_difficulty,
+                "seed": agent_cfg.seed,
+                "standing_command_probability": env_cfg.commands.base_velocity.rel_standing_envs,
+                "policy_step_dt_s": policy_step_dt,
+                "nominal_segment_duration_s": args_cli.showcase_steps_per_terrain * policy_step_dt,
+                "terrain_family_count": len(terrain_camera_representatives),
+                "terrain_column_count": showcase_num_columns,
+                "terrain_column_allocation": showcase_column_allocation,
+            }
+        )
+    else:
+        terrain_camera_representatives = None
+        showcase_steps = None
+        showcase_name_prefix = None
+        showcase_video_dir = None
+        showcase_metadata = None
+
     # wrap for video recording
     if args_cli.video:
-        video_kwargs = {
-            "video_folder": os.path.join(log_dir, "videos", "play"),
-            "step_trigger": lambda step: step == 0,
-            "video_length": args_cli.video_length,
-            "disable_logger": True,
-        }
+        if args_cli.terrain_showcase:
+            video_kwargs = {
+                "video_folder": showcase_video_dir,
+                "step_trigger": lambda step: step % args_cli.showcase_steps_per_terrain == 0,
+                "video_length": args_cli.showcase_steps_per_terrain,
+                "name_prefix": showcase_name_prefix,
+                "disable_logger": True,
+            }
+        else:
+            video_kwargs = {
+                "video_folder": os.path.join(log_dir, "videos", "play"),
+                "step_trigger": lambda step: step == 0,
+                "video_length": args_cli.video_length,
+                "disable_logger": True,
+            }
         print("[INFO] Recording videos during training.")
         print_dict(video_kwargs, nesting=4)
         env = gym.wrappers.RecordVideo(env, **video_kwargs)
+        if args_cli.terrain_showcase:
+            dump_yaml(os.path.join(showcase_video_dir, "terrain_showcase.yaml"), showcase_metadata)
 
     # wrap around environment for rsl-rl
     env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
@@ -206,7 +368,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         if args_cli.video:
             timestep += 1
             # Exit the play loop after recording one video
-            if timestep == args_cli.video_length:
+            target_steps = showcase_steps if showcase_steps is not None else args_cli.video_length
+            if timestep == target_steps:
                 break
 
         # time delay for real-time evaluation

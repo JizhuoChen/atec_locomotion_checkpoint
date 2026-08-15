@@ -389,6 +389,12 @@ class RewardsCfg:
         weight=0.0,
         params={"asset_cfg": SceneEntityCfg("robot", body_names="")},
     )
+    lateral_velocity_yaw_frame_l2 = RewTerm(func=mdp.lateral_velocity_yaw_frame_l2, weight=0.0)
+    misaligned_planar_motion_l2 = RewTerm(
+        func=mdp.misaligned_planar_motion_l2,
+        weight=0.0,
+        params={"command_name": "base_velocity"},
+    )
 
     # Joint penalties
     joint_torques_l2 = RewTerm(

@@ -1,8 +1,11 @@
 # Reference: https://github.com/fan-ziqi/robot_lab
 
+from copy import deepcopy
+
+from isaaclab.terrains import FlatPatchSamplingCfg
 from isaaclab.utils import configclass
 
-
+import atec_rl_lab.train.locomotion.velocity.mdp as mdp
 from atec_rl_lab.train.locomotion.velocity.velocity_env_cfg import LocomotionVelocityRoughEnvCfg
 
 from atec_rl_lab.assets.robots import UNITREE_B2_CFG
@@ -30,6 +33,24 @@ class UnitreeB2RoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/" + self.base_link_name
         self.scene.height_scanner_base.prim_path = "{ENV_REGEX_NS}/Robot/" + self.base_link_name
 
+        # Four times as many terrain columns reduces the initial number of
+        # co-located clones from ~34 to ~8 per terrain cell at 4096 envs. Each
+        # terrain type then owns at most 52 envs, so 64 patches are sufficient
+        # to give every member of a cell a distinct reset position.
+        terrain_generator = deepcopy(self.scene.terrain.terrain_generator)
+        terrain_generator.num_cols = 80
+        for sub_terrain in terrain_generator.sub_terrains.values():
+            sub_terrain.flat_patch_sampling = {
+                "init_pos": FlatPatchSamplingCfg(
+                    num_patches=64,
+                    patch_radius=0.55,
+                    x_range=(-2.8, 2.8),
+                    y_range=(-2.8, 2.8),
+                    max_height_diff=0.08,
+                )
+            }
+        self.scene.terrain.terrain_generator = terrain_generator
+
         # ------------------------------Observations------------------------------
         self.observations.policy.base_lin_vel.scale = 2.0
         self.observations.policy.base_ang_vel.scale = 0.25
@@ -47,10 +68,9 @@ class UnitreeB2RoughEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.actions.joint_pos.joint_names = self.joint_names
 
         # ------------------------------Events------------------------------
+        self.events.randomize_reset_base.func = mdp.reset_root_state_from_terrain_spread
         self.events.randomize_reset_base.params = {
             "pose_range": {
-                "x": (-0.5, 0.5),
-                "y": (-0.5, 0.5),
                 "z": (0.0, 0.2),
                 "roll": (-3.14, 3.14),
                 "pitch": (-3.14, 3.14),
@@ -64,6 +84,8 @@ class UnitreeB2RoughEnvCfg(LocomotionVelocityRoughEnvCfg):
                 "pitch": (-0.5, 0.5),
                 "yaw": (-0.5, 0.5),
             },
+            "patch_key": "init_pos",
+            "workspace_margin": 0.9,
         }
         self.events.randomize_rigid_body_mass_base.params["asset_cfg"].body_names = [self.base_link_name]
         self.events.randomize_rigid_body_mass_others.params["asset_cfg"].body_names = [

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "pipeline_id": "b2_piper_robust_20260806_215402_69aaacaf",
+  "profile": "robust",
+  "status": "completed",
+  "created_at": "2026-08-06T21:54:02.106640+08:00",
+  "configuration": {
+    "profile": "robust",
+    "num_envs": 2048,
+    "flat_iterations": 8000,
+    "rough_iterations": 12000,
+    "flat_seed_mode": "none",
+    "seed": null,
+    "inline_training_video": false,
+    "selected_tasks": {
+      "flat": "ATEC-Isaac-Velocity-Robust-Flat-Unitree-B2-Piper-v0",
+      "heading_rough": "ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-v0"
+    },
+    "selected_experiments": {
+      "flat": "unitree_b2_piper_robust_flat",
+      "heading_rough": "unitree_b2_piper_robust_heading_rough"
+    },
+    "arm_motion_profile": "smooth_random_waypoints",
+    "rough_actor_initialization": "actor_only_from_completed_flat_stage"
+  },
+  "actor_contract": {
+    "policy_observations": 45,
+    "leg_actions": 12,
+    "arm_policy_observations": false,
+    "arm_policy_actions": false,
+    "arm_state_privileged_to_critic": true,
+    "stage_semantics": {
+      "flat": "original body-frame x/y/yaw velocity tracking",
+      "heading_rough": "world-heading target with turn-first gated forward velocity"
+    }
+  },
+  "stages": {
+    "flat": {
+      "status": "completed",
+      "task": "ATEC-Isaac-Velocity-Robust-Flat-Unitree-B2-Piper-v0",
+      "experiment": "unitree_b2_piper_robust_flat",
+      "iterations": 8000,
+      "actor_seed": null,
+      "command": [
+        "/home/user/miniforge3/envs/isaaclab/bin/python",
+        "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/scripts/rsl_rl/train.py",
+        "--task",
+        "ATEC-Isaac-Velocity-Robust-Flat-Unitree-B2-Piper-v0",
+        "--num_envs",
+        "2048",
+        "--max_iterations",
+        "8000",
+        "--run_name",
+        "b2_piper_robust_20260806_215402_69aaacaf_flat",
+        "--headless"
+      ],
+      "started_at": "2026-08-06T21:54:02.106950+08:00",
+      "return_code": 0,
+      "run_dir": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_flat/2026-08-06_21-54-06_b2_piper_robust_20260806_215402_69aaacaf_flat",
+      "checkpoint": {
+        "path": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_flat/2026-08-06_21-54-06_b2_piper_robust_20260806_215402_69aaacaf_flat/model_7999.pt",
+        "iteration": 7999,
+        "actor_input_dim": 45,
+        "actor_output_dim": 12,
+        "sha256": "8d9d184d94cf707c45550c715ef5486547976cde2149d879cba9cf6aaedd8264"
+      },
+      "finished_at": "2026-08-06T23:17:18.374226+08:00"
+    },
+    "heading_rough": {
+      "status": "completed",
+      "task": "ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-v0",
+      "experiment": "unitree_b2_piper_robust_heading_rough",
+      "iterations": 12000,
+      "actor_seed": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_flat/2026-08-06_21-54-06_b2_piper_robust_20260806_215402_69aaacaf_flat/model_7999.pt",
+      "command": [
+        "/home/user/miniforge3/envs/isaaclab/bin/python",
+        "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/scripts/rsl_rl/train.py",
+        "--task",
+        "ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-v0",
+        "--num_envs",
+        "2048",
+        "--max_iterations",
+        "12000",
+        "--run_name",
+        "b2_piper_robust_20260806_215402_69aaacaf_heading_rough",
+        "--pretrained_actor",
+        "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_flat/2026-08-06_21-54-06_b2_piper_robust_20260806_215402_69aaacaf_flat/model_7999.pt",
+        "--spawn_audit",
+        "--headless"
+      ],
+      "validated_actor_seed": {
+        "path": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_flat/2026-08-06_21-54-06_b2_piper_robust_20260806_215402_69aaacaf_flat/model_7999.pt",
+        "iteration": 7999,
+        "actor_input_dim": 45,
+        "actor_output_dim": 12,
+        "sha256": "8d9d184d94cf707c45550c715ef5486547976cde2149d879cba9cf6aaedd8264"
+      },
+      "started_at": "2026-08-06T23:17:18.386846+08:00",
+      "return_code": 0,
+      "run_dir": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough",
+      "checkpoint": {
+        "path": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough/model_11999.pt",
+        "iteration": 11999,
+        "actor_input_dim": 45,
+        "actor_output_dim": 12,
+        "sha256": "c7a8b3b0e990c7fb724ea4408c0c2decfee8cfec5e7c0d9938d88bfa416813b8"
+      },
+      "finished_at": "2026-08-07T06:43:50.441502+08:00"
+    }
+  },
+  "final_checkpoint": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough/model_11999.pt",
+  "completed_at": "2026-08-07T06:43:50.441889+08:00"
+}

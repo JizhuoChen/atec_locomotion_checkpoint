@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "pipeline_id": "b2_piper_robust_finegrain_20260807_190441_a74cf724",
+  "workflow": "full_state_rough_continuation",
+  "profile": "robust",
+  "status": "completed",
+  "created_at": "2026-08-07T19:04:41.068266+08:00",
+  "task": "ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-v0",
+  "experiment": "unitree_b2_piper_robust_heading_rough",
+  "source_checkpoint": {
+    "path": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough/model_11999.pt",
+    "iteration": 11999,
+    "actor_input_dim": 45,
+    "actor_output_dim": 12,
+    "sha256": "c7a8b3b0e990c7fb724ea4408c0c2decfee8cfec5e7c0d9938d88bfa416813b8",
+    "critic_input_dim": 251,
+    "critic_output_dim": 1,
+    "optimizer_state_count": 17,
+    "optimizer_learning_rate": 0.00017085937500000006,
+    "completed_run": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough"
+  },
+  "configuration": {
+    "num_envs": 2048,
+    "additional_iterations": 8000,
+    "expected_final_iteration": 19998,
+    "seed": 42,
+    "seed_source": "source_checkpoint",
+    "spawn_audit": true,
+    "full_state_resume": true,
+    "environment_state_restored": false,
+    "terrain_geometry": {
+      "stair_riser_range_m": [
+        0.04,
+        0.26
+      ],
+      "stair_tread_bands_m": [
+        [
+          0.22,
+          0.28
+        ],
+        [
+          0.28,
+          0.35
+        ],
+        [
+          0.35,
+          0.42
+        ]
+      ],
+      "stair_tread_resolution_m": 0.005
+    },
+    "b2_only_payload_proxy": {
+      "fraction": 0.25,
+      "arm_mass_inertia_scale_range": [
+        0.05,
+        0.1
+      ],
+      "persistent_across_resets": true,
+      "stratified_by_terrain_type": true,
+      "actor_observation_changed": false,
+      "critic_observation_changed": false
+    }
+  },
+  "implementation_sha256": {
+    "continue_b2_piper_rough.py": "4d6357c26d67fc2dbbf3adb53541c31773aa5d9e7404246056902a7f4b97d4b9",
+    "train.py": "9ea2271a1811211d158e275c5b7ec687972d718c25a6393bb08a0fd74938b1be",
+    "robust_terrain_cfg.py": "8f5d5e7101f0bcae146ddfa9cfd2fcfbbd3de741645fd29a01bd9eac73cb71f9",
+    "robust_piper_env_cfg.py": "69231870ee6ea86a1f411e9887176ad3dd48f81e330a2571f00820b1e45bcaf4",
+    "commands.py": "8c8e94e2e302262777f9a9c76fafd5e7567ed763573d174f9f643cb695409f9c",
+    "robust_events.py": "805c58d27c573b09a2a8d6dccc002889a821be33c16a40524fe0a5ea138450dd",
+    "piper_env_cfg.py": "68902e1e7929451db621339fa7ccff96276914960b5351fda4def46020af4969",
+    "curriculums.py": "a2d766a477b7b5f64729acbea118a0e37bee332ce8eb43dadce81742ab15bbf7"
+  },
+  "command": [
+    "/home/user/miniforge3/envs/isaaclab/bin/python",
+    "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/scripts/rsl_rl/train.py",
+    "--task",
+    "ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-v0",
+    "--num_envs",
+    "2048",
+    "--max_iterations",
+    "8000",
+    "--run_name",
+    "b2_piper_robust_finegrain_20260807_190441_a74cf724",
+    "--resume",
+    "--load_run",
+    "^2026\\-08\\-06_23\\-17\\-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough$",
+    "--checkpoint",
+    "^model_11999\\.pt$",
+    "--spawn_audit",
+    "--headless",
+    "--seed",
+    "42"
+  ],
+  "run_dir": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-07_19-04-45_b2_piper_robust_finegrain_20260807_190441_a74cf724",
+  "final_checkpoint": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-07_19-04-45_b2_piper_robust_finegrain_20260807_190441_a74cf724/model_19998.pt",
+  "final_checkpoint_info": {
+    "path": "/home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-07_19-04-45_b2_piper_robust_finegrain_20260807_190441_a74cf724/model_19998.pt",
+    "iteration": 19998,
+    "actor_input_dim": 45,
+    "actor_output_dim": 12,
+    "sha256": "995b9d11ae99648255e5c213baaa14cfbe31b0380f76e976a3469a593322bfd9"
+  },
+  "completed_at": "2026-08-08T00:11:43.348547+08:00"
+}

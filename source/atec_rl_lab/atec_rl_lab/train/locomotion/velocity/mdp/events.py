@@ -9,6 +9,7 @@ import torch
 import isaaclab.utils.math as math_utils
 from isaaclab.assets import Articulation, RigidObject
 from isaaclab.managers import SceneEntityCfg
+from isaaclab.terrains import TerrainImporter
 
 from .utils import is_env_assigned_to_terrain
 
@@ -268,3 +269,134 @@ def reset_root_state_uniform(
         # set into the physics simulation
         asset.write_root_pose_to_sim(torch.cat([positions, orientations], dim=-1), env_ids=non_pit_env_ids)
         asset.write_root_velocity_to_sim(velocities, env_ids=non_pit_env_ids)
+
+
+def reset_root_state_from_terrain_spread(
+    env: ManagerBasedEnv,
+    env_ids: torch.Tensor,
+    pose_range: dict[str, tuple[float, float]],
+    velocity_range: dict[str, tuple[float, float]],
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    patch_key: str = "init_pos",
+    workspace_margin: float = 0.0,
+):
+    """Reset roots on distinct, terrain-validated patches within each terrain cell.
+
+    Isaac Lab intentionally assigns many vectorized environments to the same terrain
+    cell. Randomly choosing a patch with replacement can therefore put several visual
+    clones at exactly the same point. This reset ranks environments within their
+    current ``(terrain level, terrain type)`` cell and maps those ranks to distinct
+    pre-sampled patches. Cross-environment collision filtering remains unchanged.
+
+    The patch sampler supplies terrain-correct XYZ coordinates. ``pose_range`` may
+    contain roll, pitch, yaw, and an optional positive Z offset. X/Y are determined by
+    the validated patch and are checked against the assigned terrain-tile boundary.
+    """
+    asset: RigidObject | Articulation = env.scene[asset_cfg.name]
+    terrain: TerrainImporter = env.scene.terrain
+
+    valid_positions: torch.Tensor | None = terrain.flat_patches.get(patch_key)
+    if valid_positions is None:
+        raise ValueError(
+            f"reset_root_state_from_terrain_spread requires flat patches named '{patch_key}'. "
+            f"Found: {list(terrain.flat_patches.keys())}"
+        )
+
+    num_rows, num_cols, num_patches = valid_positions.shape[:3]
+    cell_ids = terrain.terrain_levels * num_cols + terrain.terrain_types
+    cell_counts = torch.bincount(cell_ids, minlength=num_rows * num_cols)
+    max_cell_count = int(cell_counts.max().item())
+    if max_cell_count > num_patches:
+        raise RuntimeError(
+            "Not enough distinct terrain spawn patches for the current environment density: "
+            f"a cell contains {max_cell_count} environments but only {num_patches} patches exist."
+        )
+
+    # Order each cell's random candidate patches with batched farthest-point
+    # sampling. The first N entries are therefore a well-spaced subset for a group
+    # of size N, instead of simply accepting arbitrarily clustered candidates.
+    if not hasattr(env, "_terrain_spread_patch_order"):
+        patch_xy = valid_positions[..., :2].reshape(-1, num_patches, 2)
+        num_cells = patch_xy.shape[0]
+        patch_order = torch.empty((num_cells, num_patches), dtype=torch.long, device=env.device)
+        selected = torch.zeros((num_cells, num_patches), dtype=torch.bool, device=env.device)
+        centroid = patch_xy.mean(dim=1, keepdim=True)
+        next_patch = torch.sum((patch_xy - centroid) ** 2, dim=-1).argmax(dim=1)
+        min_distance_sq = torch.full((num_cells, num_patches), torch.inf, device=env.device)
+        cell_indices = torch.arange(num_cells, device=env.device)
+        for slot in range(num_patches):
+            patch_order[:, slot] = next_patch
+            selected[cell_indices, next_patch] = True
+            selected_xy = patch_xy[cell_indices, next_patch].unsqueeze(1)
+            distance_sq = torch.sum((patch_xy - selected_xy) ** 2, dim=-1)
+            min_distance_sq = torch.minimum(min_distance_sq, distance_sq)
+            min_distance_sq.masked_fill_(selected, -1.0)
+            next_patch = min_distance_sq.argmax(dim=1)
+        env._terrain_spread_patch_order = patch_order.reshape(num_rows, num_cols, num_patches)
+
+    # Assign a stable rank to every environment within its current terrain cell.
+    order = torch.argsort(cell_ids, stable=True)
+    sorted_cells = cell_ids[order]
+    sorted_indices = torch.arange(len(cell_ids), device=env.device)
+    group_start_mask = torch.ones_like(sorted_cells, dtype=torch.bool)
+    group_start_mask[1:] = sorted_cells[1:] != sorted_cells[:-1]
+    group_starts = torch.where(group_start_mask, sorted_indices, torch.zeros_like(sorted_indices))
+    group_starts = torch.cummax(group_starts, dim=0).values
+    sorted_ranks = sorted_indices - group_starts
+    ranks = torch.empty_like(sorted_ranks)
+    ranks[order] = sorted_ranks
+
+    levels = terrain.terrain_levels[env_ids]
+    types = terrain.terrain_types[env_ids]
+    patch_ids = env._terrain_spread_patch_order[levels, types, ranks[env_ids]]
+    positions = valid_positions[levels, types, patch_ids].clone()
+    positions += asset.data.default_root_state[env_ids, :3]
+
+    # Optional clearance above the sampled terrain surface.
+    z_range = torch.tensor(pose_range.get("z", (0.0, 0.0)), device=asset.device)
+    positions[:, 2] += math_utils.sample_uniform(
+        z_range[0], z_range[1], (len(env_ids),), device=asset.device
+    )
+
+    # Verify roots against the physical 8x8 m (configurable) terrain tile, not
+    # against what happens to be visible from the recording camera.
+    tile_origins = terrain.terrain_origins[levels, types]
+    tile_half_extent = 0.5 * torch.tensor(
+        terrain.cfg.terrain_generator.size[:2], device=asset.device
+    )
+    local_xy = positions[:, :2] - tile_origins[:, :2]
+    outside = torch.any(torch.abs(local_xy) > (tile_half_extent - workspace_margin), dim=1)
+    if torch.any(outside):
+        bad_env_ids = env_ids[outside][:10].tolist()
+        raise RuntimeError(
+            f"Terrain spawn workspace violation for {int(outside.sum().item())} environments; "
+            f"first environment IDs: {bad_env_ids}."
+        )
+
+    # Sample root orientation and velocity using the baseline ranges.
+    orientation_ranges = torch.tensor(
+        [pose_range.get(key, (0.0, 0.0)) for key in ("roll", "pitch", "yaw")], device=asset.device
+    )
+    orientation_samples = math_utils.sample_uniform(
+        orientation_ranges[:, 0], orientation_ranges[:, 1], (len(env_ids), 3), device=asset.device
+    )
+    orientation_delta = math_utils.quat_from_euler_xyz(
+        orientation_samples[:, 0], orientation_samples[:, 1], orientation_samples[:, 2]
+    )
+    orientations = math_utils.quat_mul(asset.data.default_root_state[env_ids, 3:7], orientation_delta)
+
+    velocity_ranges = torch.tensor(
+        [velocity_range.get(key, (0.0, 0.0)) for key in ("x", "y", "z", "roll", "pitch", "yaw")],
+        device=asset.device,
+    )
+    velocity_samples = math_utils.sample_uniform(
+        velocity_ranges[:, 0], velocity_ranges[:, 1], (len(env_ids), 6), device=asset.device
+    )
+    velocities = asset.data.default_root_state[env_ids, 7:13] + velocity_samples
+
+    if not hasattr(env, "_terrain_spawn_positions"):
+        env._terrain_spawn_positions = torch.zeros(env.scene.num_envs, 3, device=env.device)
+    env._terrain_spawn_positions[env_ids] = positions
+
+    asset.write_root_pose_to_sim(torch.cat([positions, orientations], dim=-1), env_ids=env_ids)
+    asset.write_root_velocity_to_sim(velocities, env_ids=env_ids)
