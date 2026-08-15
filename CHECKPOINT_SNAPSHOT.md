@@ -23,6 +23,8 @@ This folder contains:
 - the flat `model_7999.pt` and rough `model_11999.pt` lineage endpoints under `reference/lineage`;
 - both original pipeline manifests and a package freeze under `reference/provenance`.
 
+The local snapshot also has the complete extracted `atec_robot_model` tree. That tree follows the upstream repository's Git-ignore rule and is not published as repository content; after a fresh clone, copy it from the competition checkout as described in `README.md`.
+
 Intermediate checkpoints were intentionally omitted. They are not needed to execute the producer command or inspect the final policy.
 
 ## Exact producer command
