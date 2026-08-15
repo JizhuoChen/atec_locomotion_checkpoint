@@ -33,6 +33,15 @@ EXPECTED = {
     "reference/model_19998_run/params/spawn_audit.yaml": "2b71d517e084f062733af849c5e7fcfd3a8352385e5c324b0374f8421bac3f30",
     "reference/provenance/pipeline_aug07_model_19998.json": "45f07d2ef295156f8d6ccaddc693c16348436ab0237790bfb3b49418153af49c",
     "atec_robot_model/robot/b2/b2_piper.usda": "83e17a50c68f6aa184815bbe50c81155613f5b96844aa76d0d888b46a4741222",
+    "atec_robot_model/robot/b2/configuration/b2_description_base.usd": "0e37eacfa46152cdebdc57381464f48d3904bdfccb00b381b67f7cb22594190c",
+    "atec_robot_model/robot/b2/configuration/b2_description_physics.usd": "4ef81d01b55188617644855541746e0090cfad9309466155b273afb4d3f4fe04",
+    "atec_robot_model/robot/b2/configuration/b2_description_sensor.usd": "c604f3c47330c1f6d45f310a8e37e60977b65f345b15eaa73f905d36552d6107",
+    "atec_robot_model/robot/_piper/piper_flattened.usd": "cb4e731cb01b595326acb0f68e06cd1b7f09334c6b900ba93a860e1fd00e9c04",
+    "atec_robot_model/scene/TilesMarbleSpiderWhiteBrickBondHoned.mdl": "7f326c41515d7676550d323ab4b495d216571f8efe7e6e1f5019384c8db6f4cd",
+    "atec_robot_model/scene/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg": "38b53f7e407016bad8ebb2c90f6d532bda14156f762f311c3b270c3faf7a0ef1",
+    "atec_robot_model/scene/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg": "9cf6eb03faa9719699c8d25c6acf96c1a22728233e5a011fe928f3af71af851d",
+    "atec_robot_model/scene/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png": "f8726eb8ec7145cbe2e111343f91a22332de42d64d37e5661634fcc7ed925f0e",
+    "atec_robot_model/scene/kloofendal_43d_clear_puresky_4k.hdr": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb",
 }
 
 

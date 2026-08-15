@@ -23,7 +23,7 @@ This folder contains:
 - the flat `model_7999.pt` and rough `model_11999.pt` lineage endpoints under `reference/lineage`;
 - both original pipeline manifests and a package freeze under `reference/provenance`.
 
-The local snapshot also has the complete extracted `atec_robot_model` tree. That tree follows the upstream repository's Git-ignore rule and is not published as repository content; after a fresh clone, copy it from the competition checkout as described in `README.md`.
+The local snapshot has the complete extracted `atec_robot_model` tree. The published repository includes the ten runtime files needed by this B2-Piper locomotion task; unrelated competition assets follow the upstream Git-ignore rule. See `README.md` if you also need those other task assets.
 
 Intermediate checkpoints were intentionally omitted. They are not needed to execute the producer command or inspect the final policy.
 
@@ -35,6 +35,8 @@ First verify the snapshot:
 cd /home/user/jz/atec/Clear_ATEC2026_checkpoint
 /home/user/miniforge3/envs/isaaclab/bin/python verify_checkpoint_snapshot.py --all-assets
 ```
+
+For a fresh GitHub clone containing only the required locomotion assets, omit `--all-assets`. Use that flag after copying the complete competition asset tree.
 
 Then launch the same 8,000-update, full-PPO-state continuation that produced iteration 19,998:
 

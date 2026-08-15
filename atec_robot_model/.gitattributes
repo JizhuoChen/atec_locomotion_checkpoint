@@ -1,0 +1,9 @@
+# The original asset archive configured Git LFS for every matching file.  This
+# checkpoint repository publishes only a small runtime subset, with every file
+# safely below GitHub's regular-blob limit, so keep clone behavior self-contained.
+*.png -text -diff -merge
+*.jpg -text -diff -merge
+*.usd -text -diff -merge
+*.usda -text -diff -merge
+*.hdr -text -diff -merge
+*.pt -text -diff -merge

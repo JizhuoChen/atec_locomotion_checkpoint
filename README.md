@@ -18,14 +18,16 @@ The final TorchScript and ONNX policy exports are in `reference/model_19998_run/
 
 ## Assets
 
-The upstream competition repository deliberately ignores the extracted `atec_robot_model` tree. It is therefore not committed here. Before training from a fresh clone, copy or link that directory from your competition checkout:
+This repository includes the ten B2-Piper, terrain-material and sky files required by the preserved locomotion task. The remaining competition assets are unrelated to this training and remain excluded because the complete tree is about 635 MB and includes files above GitHub's normal size limit.
+
+To use other competition tasks from the same checkout, copy the complete asset directory over the included subset:
 
 ```bash
 cd /path/to/atec_locomotion_checkpoint
 cp -a /path/to/Clear_ATEC2026_Simulation_Challenge/atec_robot_model ./
 ```
 
-The expected hashes for every asset file are recorded in `reference/provenance/atec_robot_model.sha256`.
+The expected hashes for the complete optional asset tree are recorded in `reference/provenance/atec_robot_model.sha256`.
 
 ## Verify and continue training
 
@@ -33,10 +35,12 @@ The expected hashes for every asset file are recorded in `reference/provenance/a
 cd /path/to/atec_locomotion_checkpoint
 
 /home/user/miniforge3/envs/isaaclab/bin/python \
-  verify_checkpoint_snapshot.py --all-assets
+  verify_checkpoint_snapshot.py
 
 ./train_model_19998.sh --device cuda:0
 ```
+
+If you copied the complete competition asset tree, add `--all-assets` to the verification command.
 
 The launcher restores the complete PPO state from `model_11999.pt`, trains 2,048 environments for another 8,000 updates with seed 42, and produces iteration 19,998. It also prevents the conda environment from silently importing a different editable checkout.
 

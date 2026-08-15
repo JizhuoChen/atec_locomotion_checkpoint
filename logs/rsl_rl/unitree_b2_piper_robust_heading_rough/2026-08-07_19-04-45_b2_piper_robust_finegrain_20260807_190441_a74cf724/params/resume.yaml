@@ -1,0 +1,13 @@
+schema_version: 1
+status: completed
+checkpoint: /home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-06_23-17-23_b2_piper_robust_20260806_215402_69aaacaf_heading_rough/model_11999.pt
+checkpoint_sha256: c7a8b3b0e990c7fb724ea4408c0c2decfee8cfec5e7c0d9938d88bfa416813b8
+source_iteration: 11999
+additional_iterations: 8000
+expected_final_iteration: 19998
+optimizer_learning_rate: 0.00017085937500000006
+adaptive_learning_rate_synchronized: true
+started_at: '2026-08-07T19:05:15.639564+08:00'
+final_iteration: 19998
+final_checkpoint: /home/user/jz/atec/Clear_ATEC2026_Simulation_Challenge/logs/rsl_rl/unitree_b2_piper_robust_heading_rough/2026-08-07_19-04-45_b2_piper_robust_finegrain_20260807_190441_a74cf724/model_19998.pt
+completed_at: '2026-08-08T00:11:42.287967+08:00'
