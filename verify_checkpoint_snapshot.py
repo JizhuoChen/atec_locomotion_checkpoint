@@ -90,21 +90,34 @@ def main() -> int:
     if args.all_assets:
         failures.extend(verify_all_assets())
 
-    base = subprocess.run(
-        [
-            "git",
-            "merge-base",
-            "--is-ancestor",
-            "2f4bd998386717bd8e4484db43fc8e3b9c0aee5c",
-            "HEAD",
-        ],
+    base_commit = "2f4bd998386717bd8e4484db43fc8e3b9c0aee5c"
+    base_available = subprocess.run(
+        ["git", "cat-file", "-e", f"{base_commit}^{{commit}}"],
         cwd=ROOT,
         text=True,
         capture_output=True,
         check=False,
     )
-    if base.returncode != 0:
-        failures.append("Expected base commit 2f4bd998386... is not an ancestor of HEAD")
+    if base_available.returncode == 0:
+        base_is_ancestor = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", base_commit, "HEAD"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if base_is_ancestor.returncode != 0:
+            failures.append("Expected base commit 2f4bd998386... is not an ancestor of HEAD")
+    else:
+        shallow = subprocess.run(
+            ["git", "rev-parse", "--is-shallow-repository"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if shallow.returncode != 0 or shallow.stdout.strip() != "true":
+            failures.append("Expected base commit 2f4bd998386... is unavailable in a non-shallow clone")
 
     if failures:
         print("Snapshot verification FAILED:", file=sys.stderr)
