@@ -33,6 +33,21 @@ class UnitreeB2PiperPrivilegedTeacherPPORunnerCfg(
 
 
 @configclass
+class UnitreeB2PiperPrivilegedTeacherHeightScanPPORunnerCfg(
+    UnitreeB2PiperPrivilegedTeacherPPORunnerCfg
+):
+    """Fine-tune an expanded teacher actor with privileged height scans."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "unitree_b2_piper_privileged_teacher_heightscan"
+        self.obs_groups = {
+            "policy": ["policy", "teacher_privileged", "contact_forces", "teacher_height_scan"],
+            "critic": ["critic", "contact_forces"],
+        }
+
+
+@configclass
 class UnitreeB2PiperStudentDistillationRunnerCfg(RslRlDistillationRunnerCfg):
     """Distill the frozen 76-input teacher into the original 45-input MLP."""
 
@@ -61,3 +76,36 @@ class UnitreeB2PiperStudentDistillationRunnerCfg(RslRlDistillationRunnerCfg):
         optimizer="adam",
         loss_type="huber",
     )
+
+
+@configclass
+class UnitreeB2PiperHeightScanStudentDistillationRunnerCfg(RslRlDistillationRunnerCfg):
+    """Distill a height-aware privileged teacher into the original deployable student."""
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.experiment_name = "unitree_b2_piper_student_distillation_heightscan"
+        self.obs_groups = {
+            "policy": ["policy"],
+            "teacher": ["policy", "teacher_privileged", "contact_forces", "teacher_height_scan"],
+        }
+        self.num_steps_per_env = 24
+        self.max_iterations = 2000
+        self.save_interval = 100
+        self.policy = RslRlDistillationStudentTeacherCfg(
+            init_noise_std=0.1,
+            noise_std_type="scalar",
+            student_obs_normalization=False,
+            teacher_obs_normalization=False,
+            student_hidden_dims=[512, 256, 128],
+            teacher_hidden_dims=[512, 256, 128],
+            activation="elu",
+        )
+        self.algorithm = RslRlDistillationAlgorithmCfg(
+            num_learning_epochs=5,
+            learning_rate=1.0e-4,
+            gradient_length=15,
+            max_grad_norm=1.0,
+            optimizer="adam",
+            loss_type="huber",
+        )

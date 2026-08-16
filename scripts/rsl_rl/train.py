@@ -337,16 +337,24 @@ def _expanded_mlp_state(
 def load_expanded_privileged_teacher(
     runner: OnPolicyRunner, checkpoint_path: str
 ) -> dict[str, object]:
-    """Warm-start a 76-input actor and 263-input critic from the canonical checkpoint."""
+    """Warm-start a privileged teacher from the canonical checkpoint."""
     expected_obs_groups = {
-        "policy": ["policy", "teacher_privileged", "contact_forces"],
         "critic": ["critic", "contact_forces"],
+        "policy": ["policy", "teacher_privileged", "contact_forces", "teacher_height_scan"],
     }
     resolved_obs_groups = getattr(runner, "cfg", {}).get("obs_groups")
-    if resolved_obs_groups != expected_obs_groups:
+    policy_groups = tuple(resolved_obs_groups.get("policy", ())) if resolved_obs_groups else None
+    critic_groups = tuple(resolved_obs_groups.get("critic", ())) if resolved_obs_groups else None
+    legacy_policy_obs_groups = ("policy", "teacher_privileged", "contact_forces")
+    height_scan_policy_obs_groups = ("policy", "teacher_privileged", "contact_forces", "teacher_height_scan")
+    if (
+        resolved_obs_groups is None
+        or (policy_groups != legacy_policy_obs_groups and policy_groups != height_scan_policy_obs_groups)
+        or critic_groups != tuple(expected_obs_groups["critic"])
+    ):
         raise ValueError(
             "Expanded teacher initialization requires the prefix-preserving observation mapping "
-            f"{expected_obs_groups}, got {resolved_obs_groups}."
+            f"{expected_obs_groups} or {legacy_policy_obs_groups}, got {resolved_obs_groups}."
         )
 
     resolved_path, source_state, source_iteration = _load_checkpoint_model_state(checkpoint_path)
@@ -372,12 +380,22 @@ def load_expanded_privileged_teacher(
     critic_state, critic_metadata = _expanded_mlp_state(
         critic, source_critic, network_name="privileged teacher critic"
     )
-    if actor_metadata != {
-        "source_input_dim": 45,
-        "target_input_dim": 76,
-        "zero_initialized_input_columns": 31,
-    }:
+    if actor_metadata["source_input_dim"] != 45:
+        raise ValueError(
+            "Unexpected privileged teacher actor expansion: source input dimension "
+            f"must stay 45, got {actor_metadata['source_input_dim']}."
+        )
+    if actor_metadata["target_input_dim"] <= actor_metadata["source_input_dim"]:
         raise ValueError(f"Unexpected privileged teacher actor expansion: {actor_metadata}")
+    if (
+        actor_metadata["target_input_dim"] != 76
+        and "teacher_height_scan" not in policy_groups
+    ):
+        raise ValueError(
+            "Unexpected privileged teacher actor expansion: target input dimension "
+            f"{actor_metadata['target_input_dim']} requires the height-scan policy group "
+            "(teacher_height_scan)."
+        )
     if critic_metadata != {
         "source_input_dim": 251,
         "target_input_dim": 263,

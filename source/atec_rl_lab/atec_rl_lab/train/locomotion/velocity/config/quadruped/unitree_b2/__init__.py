@@ -115,3 +115,27 @@ gym.register(
         ),
     },
 )
+
+gym.register(
+    id="ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-TeacherStudent-HeightScan-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": (
+            f"{__name__}.teacher_student_env_cfg:"
+            "UnitreeB2PiperRobustHeadingRoughTeacherStudentEnvCfg"
+        ),
+        "rsl_rl_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_teacher_student_cfg:"
+            "UnitreeB2PiperPrivilegedTeacherHeightScanPPORunnerCfg"
+        ),
+        "rsl_rl_teacher_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_teacher_student_cfg:"
+            "UnitreeB2PiperPrivilegedTeacherHeightScanPPORunnerCfg"
+        ),
+        "rsl_rl_distillation_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_teacher_student_cfg:"
+            "UnitreeB2PiperHeightScanStudentDistillationRunnerCfg"
+        ),
+    },
+)

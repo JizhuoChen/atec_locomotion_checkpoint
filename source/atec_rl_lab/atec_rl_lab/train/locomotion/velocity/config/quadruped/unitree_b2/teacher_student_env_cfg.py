@@ -98,11 +98,28 @@ class ContactForceObservationsCfg(ObsGroup):
 
 
 @configclass
+class TeacherHeightScanObservationsCfg(ObsGroup):
+    """Ground-truth terrain-height map for the privileged teacher."""
+
+    height_scan = ObsTerm(
+        func=mdp.height_scan,
+        params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+        clip=(-1.0, 1.0),
+        scale=1.0,
+    )
+
+    def __post_init__(self):
+        self.enable_corruption = False
+        self.concatenate_terms = True
+
+
+@configclass
 class TeacherStudentObservationsCfg(ObservationsCfg):
     """Canonical observations plus explicit teacher-only observation groups."""
 
     teacher_privileged: TeacherPrivilegedObservationsCfg = TeacherPrivilegedObservationsCfg()
     contact_forces: ContactForceObservationsCfg = ContactForceObservationsCfg()
+    teacher_height_scan: TeacherHeightScanObservationsCfg = TeacherHeightScanObservationsCfg()
 
 
 @configclass

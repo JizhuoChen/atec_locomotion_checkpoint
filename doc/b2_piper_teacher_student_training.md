@@ -12,6 +12,14 @@ task registration or deployment interface.
 | Teacher actor | `policy` + `teacher_privileged` + `contact_forces` | 76 | 12 leg actions |
 | Teacher critic | `critic` + `contact_forces` | 263 | 1 value |
 
+Height-map-aware alternative:
+
+| Network | Observation groups | Input | Output |
+| --- | --- | ---: | ---: |
+| Student | `policy` | 45 | 12 leg actions |
+| Teacher actor | `policy` + `teacher_privileged` + `contact_forces` + `teacher_height_scan` | 263 | 12 leg actions |
+| Teacher critic | `critic` + `contact_forces` | 263 | 1 value |
+
 `teacher_privileged` contains clean ground-truth base linear velocity (3), Piper
 joint positions (8), and Piper joint velocities (8). `contact_forces` contains
 the four foot net-normal force vectors rotated into the robot base frame (12),
@@ -68,6 +76,13 @@ python scripts/rsl_rl/train_b2_piper_teacher_student.py \
   --device cuda:0
 ```
 
+Terrain-aware two-stage run:
+
+```bash
+conda run --no-capture-output -n isaaclab \
+  python scripts/rsl_rl/train_b2_piper_teacher_student_heightscan.py
+```
+
 ## Individual stages
 
 Teacher PPO:
@@ -88,6 +103,29 @@ Student distillation:
 ```bash
 python scripts/rsl_rl/train.py \
   --task ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-TeacherStudent-v0 \
+  --agent rsl_rl_distillation_cfg_entry_point \
+  --num_envs 2048 \
+  --max_iterations 2000 \
+  --teacher_checkpoint /absolute/path/to/teacher/model_5999.pt \
+  --pretrained_student reference/model_19998_run/model_19998.pt \
+  --run_name distilled_student \
+  --spawn_audit --headless --seed 42
+```
+
+Manual teacher-student height-map stages use the same `HeightScan` task:
+
+```bash
+python scripts/rsl_rl/train.py \
+  --task ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-TeacherStudent-HeightScan-v0 \
+  --agent rsl_rl_teacher_cfg_entry_point \
+  --num_envs 2048 \
+  --max_iterations 6000 \
+  --pretrained_privileged_teacher reference/model_19998_run/model_19998.pt \
+  --run_name privileged_teacher \
+  --spawn_audit --headless --seed 42
+
+python scripts/rsl_rl/train.py \
+  --task ATEC-Isaac-Velocity-Robust-Heading-Rough-Unitree-B2-Piper-TeacherStudent-HeightScan-v0 \
   --agent rsl_rl_distillation_cfg_entry_point \
   --num_envs 2048 \
   --max_iterations 2000 \
