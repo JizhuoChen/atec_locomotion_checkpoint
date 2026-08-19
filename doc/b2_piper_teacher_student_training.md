@@ -1,5 +1,9 @@
 # B2-Piper privileged teacher and student distillation
 
+The additive PPO fine-tuning stage that keeps the teacher frozen while adding
+student reward optimization is documented in
+[`b2_piper_hybrid_ppo_distillation.md`](b2_piper_hybrid_ppo_distillation.md).
+
 This extension appends a privileged-teacher PPO stage and a student-distillation
 stage to the canonical `model_19998.pt` lineage.  It does not change the original
 task registration or deployment interface.

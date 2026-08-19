@@ -137,5 +137,17 @@ gym.register(
             f"{agents.__name__}.rsl_rl_teacher_student_cfg:"
             "UnitreeB2PiperHeightScanStudentDistillationRunnerCfg"
         ),
+        "rsl_rl_hybrid_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_hybrid_distillation_cfg:"
+            "UnitreeB2PiperHeightScanHybridDistillationPPORunnerCfg"
+        ),
+        "rsl_rl_hybrid_fixed_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_hybrid_distillation_cfg:"
+            "UnitreeB2PiperHeightScanHybridFixedPPORunnerCfg"
+        ),
+        "rsl_rl_student_ppo_cfg_entry_point": (
+            f"{agents.__name__}.rsl_rl_hybrid_distillation_cfg:"
+            "UnitreeB2PiperHeightScanStudentPPOOnlyRunnerCfg"
+        ),
     },
 )

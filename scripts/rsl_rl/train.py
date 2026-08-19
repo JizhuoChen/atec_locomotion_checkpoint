@@ -57,6 +57,36 @@ parser.add_argument(
     help="PPO checkpoint whose actor initializes the 45-input student before distillation.",
 )
 parser.add_argument(
+    "--hybrid-student-checkpoint",
+    type=str,
+    default=None,
+    help="Distilled student checkpoint whose 45-input actor initializes hybrid PPO.",
+)
+parser.add_argument(
+    "--hybrid-teacher-checkpoint",
+    type=str,
+    default=None,
+    help="Privileged PPO teacher checkpoint used for frozen labels and critic warm start.",
+)
+parser.add_argument(
+    "--hybrid-distillation-coef-start",
+    type=float,
+    default=None,
+    help="Override the initial frozen-teacher regularization coefficient.",
+)
+parser.add_argument(
+    "--hybrid-distillation-coef-end",
+    type=float,
+    default=None,
+    help="Override the final frozen-teacher regularization coefficient.",
+)
+parser.add_argument(
+    "--hybrid-distillation-decay-iterations",
+    type=int,
+    default=None,
+    help="Override the number of hybrid PPO updates used for linear coefficient decay.",
+)
+parser.add_argument(
     "--spawn_audit",
     action="store_true",
     default=False,
@@ -136,6 +166,7 @@ from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_tasks.utils.hydra import hydra_task_config
 
 import atec_rl_lab.train  # noqa: F401  # isort: skip
+from atec_rl_lab.train.locomotion.velocity.hybrid_distillation_ppo import HybridOnPolicyRunner
 from terrain_camera import TerrainFamilyCameraCycle, terrain_family_representatives, terrain_video_manifest
 
 # import logger
@@ -598,6 +629,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             "--pretrained_privileged_teacher is mutually exclusive with --resume and --pretrained_actor."
         )
     is_distillation = agent_cfg.class_name == "DistillationRunner"
+    is_hybrid = agent_cfg.class_name == "HybridOnPolicyRunner"
     if args_cli.teacher_checkpoint is not None and not is_distillation:
         raise ValueError("--teacher_checkpoint is only valid for a DistillationRunner.")
     if args_cli.teacher_checkpoint is not None and args_cli.checkpoint is not None:
@@ -611,6 +643,53 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             "No explicit --teacher_checkpoint was supplied; the teacher will be selected from "
             "the distillation experiment's load_run/load_checkpoint patterns."
         )
+    hybrid_initialization_args = (
+        args_cli.hybrid_student_checkpoint,
+        args_cli.hybrid_teacher_checkpoint,
+    )
+    hybrid_schedule_args = (
+        args_cli.hybrid_distillation_coef_start,
+        args_cli.hybrid_distillation_coef_end,
+        args_cli.hybrid_distillation_decay_iterations,
+    )
+    if not is_hybrid and any(value is not None for value in hybrid_initialization_args + hybrid_schedule_args):
+        raise ValueError("--hybrid-* arguments require the HybridOnPolicyRunner agent configuration.")
+    if is_hybrid:
+        if agent_cfg.resume and any(value is not None for value in hybrid_initialization_args):
+            raise ValueError("Hybrid resume restores both networks; do not pass hybrid initialization checkpoints.")
+        if not agent_cfg.resume and any(value is None for value in hybrid_initialization_args):
+            raise ValueError(
+                "A fresh hybrid run requires --hybrid-student-checkpoint and --hybrid-teacher-checkpoint."
+            )
+        if not agent_cfg.resume:
+            args_cli.hybrid_student_checkpoint = os.path.abspath(
+                os.path.expanduser(args_cli.hybrid_student_checkpoint)
+            )
+            args_cli.hybrid_teacher_checkpoint = os.path.abspath(
+                os.path.expanduser(args_cli.hybrid_teacher_checkpoint)
+            )
+            if not os.path.isfile(args_cli.hybrid_student_checkpoint):
+                raise FileNotFoundError(
+                    f"Hybrid student checkpoint does not exist: {args_cli.hybrid_student_checkpoint}"
+                )
+            if not os.path.isfile(args_cli.hybrid_teacher_checkpoint):
+                raise FileNotFoundError(
+                    f"Hybrid teacher checkpoint does not exist: {args_cli.hybrid_teacher_checkpoint}"
+                )
+        if args_cli.hybrid_distillation_coef_start is not None:
+            agent_cfg.algorithm.distillation_coef_start = args_cli.hybrid_distillation_coef_start
+        if args_cli.hybrid_distillation_coef_end is not None:
+            agent_cfg.algorithm.distillation_coef_end = args_cli.hybrid_distillation_coef_end
+        if args_cli.hybrid_distillation_decay_iterations is not None:
+            agent_cfg.algorithm.distillation_decay_iterations = (
+                args_cli.hybrid_distillation_decay_iterations
+            )
+        if agent_cfg.algorithm.distillation_coef_start < 0.0:
+            raise ValueError("--hybrid-distillation-coef-start must be non-negative.")
+        if agent_cfg.algorithm.distillation_coef_end < 0.0:
+            raise ValueError("--hybrid-distillation-coef-end must be non-negative.")
+        if agent_cfg.algorithm.distillation_decay_iterations < 0:
+            raise ValueError("--hybrid-distillation-decay-iterations must be non-negative.")
     if args_cli.video_terrain_cycle and not args_cli.video:
         raise ValueError("--video_terrain_cycle requires --video.")
 
@@ -723,6 +802,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
     elif agent_cfg.class_name == "DistillationRunner":
         runner = DistillationRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
+    elif agent_cfg.class_name == "HybridOnPolicyRunner":
+        runner = HybridOnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
     else:
         raise ValueError(f"Unsupported runner class: {agent_cfg.class_name}")
     # write git state to logs
@@ -730,20 +811,32 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # load the checkpoint
     privileged_teacher_metadata = None
     pretrained_student_metadata = None
-    if agent_cfg.resume or is_distillation:
+    hybrid_initialization_metadata = None
+    if agent_cfg.resume:
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
-        # load previously trained model
         runner.load(resume_path)
         pretrained_actor_metadata = None
         resume_metadata = (
             resume_metadata_and_sync_learning_rate(
                 runner, resume_path, agent_cfg.max_iterations
             )
-            if agent_cfg.resume and agent_cfg.class_name == "OnPolicyRunner"
+            if agent_cfg.class_name in {"OnPolicyRunner", "HybridOnPolicyRunner"}
             else None
         )
+    elif is_distillation:
+        print(f"[INFO]: Loading model checkpoint from: {resume_path}")
+        runner.load(resume_path)
+        pretrained_actor_metadata = None
+        resume_metadata = None
         if is_distillation and args_cli.pretrained_student is not None:
             pretrained_student_metadata = load_pretrained_student(runner, args_cli.pretrained_student)
+    elif is_hybrid:
+        hybrid_initialization_metadata = runner.initialize_from_checkpoints(
+            args_cli.hybrid_student_checkpoint,
+            args_cli.hybrid_teacher_checkpoint,
+        )
+        pretrained_actor_metadata = None
+        resume_metadata = None
     elif args_cli.pretrained_privileged_teacher is not None:
         privileged_teacher_metadata = load_expanded_privileged_teacher(
             runner, args_cli.pretrained_privileged_teacher
@@ -771,6 +864,11 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         dump_yaml(
             os.path.join(log_dir, "params", "pretrained_student.yaml"),
             pretrained_student_metadata,
+        )
+    if hybrid_initialization_metadata is not None:
+        dump_yaml(
+            os.path.join(log_dir, "params", "hybrid_initialization.yaml"),
+            hybrid_initialization_metadata,
         )
     if resume_metadata is not None:
         dump_yaml(os.path.join(log_dir, "params", "resume.yaml"), resume_metadata)

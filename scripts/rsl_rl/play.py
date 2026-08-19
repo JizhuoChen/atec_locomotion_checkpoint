@@ -104,6 +104,7 @@ from isaaclab_tasks.utils import get_checkpoint_path
 from isaaclab_tasks.utils.hydra import hydra_task_config
 
 import atec_rl_lab.train  # noqa: F401  # isort: skip
+from atec_rl_lab.train.locomotion.velocity.hybrid_distillation_ppo import HybridOnPolicyRunner
 from terrain_camera import (
     TerrainFamilyCameraCycle,
     terrain_family_representatives,
@@ -320,6 +321,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
     elif agent_cfg.class_name == "DistillationRunner":
         runner = DistillationRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
+    elif agent_cfg.class_name == "HybridOnPolicyRunner":
+        runner = HybridOnPolicyRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
     else:
         raise ValueError(f"Unsupported runner class: {agent_cfg.class_name}")
     runner.load(resume_path)

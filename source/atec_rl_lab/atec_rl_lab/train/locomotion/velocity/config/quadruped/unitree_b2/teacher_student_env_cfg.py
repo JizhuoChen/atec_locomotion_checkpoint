@@ -124,11 +124,13 @@ class TeacherStudentObservationsCfg(ObservationsCfg):
 
 @configclass
 class UnitreeB2PiperRobustHeadingRoughTeacherStudentEnvCfg(UnitreeB2PiperRobustHeadingRoughEnvCfg):
-    """Robust B2-Piper task with a 76-input teacher and 263-input critic.
+    """Robust B2-Piper task exposing all teacher/student observation groups.
 
     The original ``policy`` group remains the unchanged 45-input deployable
     interface.  RSL-RL runner configuration decides whether the extra groups
-    feed the privileged teacher or are ignored by a deployed student.
+    feed the 76-input legacy teacher, the 263-input height-scan teacher, or are
+    ignored by a deployed student.  Both teacher variants use a 263-input
+    privileged critic.
     """
 
     observations: TeacherStudentObservationsCfg = TeacherStudentObservationsCfg()
