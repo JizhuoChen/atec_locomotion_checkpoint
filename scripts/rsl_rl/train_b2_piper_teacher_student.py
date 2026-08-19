@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime
@@ -32,17 +33,30 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--student-iterations", type=int, default=2000)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default=None)
+    parser.add_argument("--num-gpus", type=int, default=1)
+    parser.add_argument(
+        "--teacher-resume-checkpoint",
+        type=Path,
+        default=None,
+        help="Resume the teacher from model_N.pt and train until --teacher-iterations total iterations.",
+    )
     parser.add_argument("--python", default=sys.executable)
     parser.add_argument("--spawn-audit", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     if args.num_envs <= 0 or args.teacher_iterations <= 0 or args.student_iterations <= 0:
         parser.error("environment and iteration counts must be positive")
+    if args.num_gpus <= 0:
+        parser.error("--num-gpus must be positive")
     if args.seed < 0:
         parser.error("--seed must be non-negative")
     args.base_checkpoint = args.base_checkpoint.expanduser().resolve()
     if not args.dry_run and not args.base_checkpoint.is_file():
         parser.error(f"base checkpoint does not exist: {args.base_checkpoint}")
+    if args.teacher_resume_checkpoint is not None:
+        args.teacher_resume_checkpoint = args.teacher_resume_checkpoint.expanduser().resolve()
+        if not args.dry_run and not args.teacher_resume_checkpoint.is_file():
+            parser.error(f"teacher resume checkpoint does not exist: {args.teacher_resume_checkpoint}")
     return args
 
 
@@ -55,9 +69,19 @@ def stage_command(
     run_name: str,
     initialization_args: list[str],
 ) -> list[str]:
-    command = [
-        args.python,
-        str(train_script),
+    command = [args.python]
+    if args.num_gpus > 1:
+        command.extend(
+            [
+                "-m",
+                "torch.distributed.run",
+                "--standalone",
+                f"--nproc_per_node={args.num_gpus}",
+            ]
+        )
+    command.extend(
+        [
+            str(train_script),
         "--task",
         TASK,
         "--agent",
@@ -72,12 +96,22 @@ def stage_command(
         str(args.seed),
         "--headless",
         *initialization_args,
-    ]
+        ]
+    )
+    if args.num_gpus > 1:
+        command.append("--distributed")
     if args.spawn_audit:
         command.append("--spawn_audit")
     if args.device is not None:
         command.extend(["--device", args.device])
     return command
+
+
+def checkpoint_iteration(checkpoint: Path) -> int:
+    match = re.fullmatch(r"model_(\d+)\.pt", checkpoint.name)
+    if match is None:
+        raise ValueError(f"Teacher resume checkpoint must be named model_N.pt: {checkpoint}")
+    return int(match.group(1))
 
 
 def completed_checkpoint(repo_root: Path, experiment: str, run_name: str, iterations: int) -> Path:
@@ -103,13 +137,32 @@ def main() -> None:
     old_pythonpath = env.get("PYTHONPATH")
     env["PYTHONPATH"] = package_root if not old_pythonpath else f"{package_root}{os.pathsep}{old_pythonpath}"
 
+    teacher_resume_iteration = None
+    teacher_stage_iterations = args.teacher_iterations
+    teacher_initialization_args = ["--pretrained_privileged_teacher", str(args.base_checkpoint)]
+    if args.teacher_resume_checkpoint is not None:
+        teacher_resume_iteration = checkpoint_iteration(args.teacher_resume_checkpoint)
+        teacher_stage_iterations = args.teacher_iterations - teacher_resume_iteration
+        if teacher_stage_iterations <= 0:
+            raise ValueError(
+                f"Teacher checkpoint iteration {teacher_resume_iteration} already reaches "
+                f"the requested total {args.teacher_iterations}."
+            )
+        teacher_initialization_args = [
+            "--resume",
+            "--load_run",
+            args.teacher_resume_checkpoint.parent.name,
+            "--checkpoint",
+            args.teacher_resume_checkpoint.name,
+        ]
+
     teacher_command = stage_command(
         args=args,
         train_script=train_script,
         agent="rsl_rl_teacher_cfg_entry_point",
-        iterations=args.teacher_iterations,
+        iterations=teacher_stage_iterations,
         run_name=teacher_run,
-        initialization_args=["--pretrained_privileged_teacher", str(args.base_checkpoint)],
+        initialization_args=teacher_initialization_args,
     )
     if args.dry_run:
         print("[DRY-RUN] Teacher command:")
@@ -153,6 +206,13 @@ def main() -> None:
         "student_observations": 45,
         "actions": 12,
         "seed": args.seed,
+        "num_gpus": args.num_gpus,
+        "num_envs_per_gpu": args.num_envs,
+        "num_envs_total": args.num_envs * args.num_gpus,
+        "teacher_resume_checkpoint": (
+            str(args.teacher_resume_checkpoint) if args.teacher_resume_checkpoint is not None else None
+        ),
+        "teacher_resume_iteration": teacher_resume_iteration,
         "num_envs": args.num_envs,
         "teacher_iterations": args.teacher_iterations,
         "student_iterations": args.student_iterations,
